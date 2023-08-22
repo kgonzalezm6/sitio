@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
 import Default from '../layouts/Default.vue'
-import DontAutorization from '../views/DontAuthorization.vue'
+import Unauthorize from '../views/401-Unauthorize.vue'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_MY_BASE),
@@ -10,24 +11,35 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Default,
+      meta: { //COLOCAR ESTA PROPIEDAD PARA PROTEGER RUTA 
+        auth : true,
+        progress: 20
+      }
     },
     {
-      path: '/dont-autorization',
-      name: 'dontAutorization',
-      component: DontAutorization,
+      path: '/prueba',
+      name: 'prueba',
+      component: Default,
+    },
+    {
+      path: '/401-Unauthorize',
+      name: '401-Unauthorize',
+      component: Unauthorize,
       props: true
     }
   ]
 })
 
 
-router.beforeEach((to,from) => {
+router.beforeEach((to,from,next) => {
 
-  // DESCOMENTARIAR PARA QUE SE PUEDA EJECUTAR EL CHEQUEO DE AUTORIZACION
+  const protectedRoutes = to.matched.some(route => route.meta.auth)
 
-  // const auth = useAuthStore()
-  // auth.fetchAuth()
-
+  if(protectedRoutes && !localStorage.getItem('nit')){
+    next('/401-Unauthorize')
+  }
+  next()
+  
 })
 
 export default router

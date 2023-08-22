@@ -1,7 +1,5 @@
 import './assets/main.css'
 
-
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
@@ -24,8 +22,11 @@ import datatable from './components/DataTable.vue'
 import Input from './components/Input.vue'
 import Card from './components/Card.vue'
 import ValidateErrors from './components/ValidateErrors.vue'
+import axios from 'axios'
 
 library.add(fas)
+
+axios.defaults.baseURL = import.meta.env.VITE_MY_URL_BASE
 
 const app = createApp(App)
 app.use(createPinia())
@@ -40,7 +41,6 @@ app.component('btn', btn)
 app.component('text-field', Input)
 app.component('card', Card)
 app.component('validate-errors', ValidateErrors)
-
 
 app.mount('#app')
 

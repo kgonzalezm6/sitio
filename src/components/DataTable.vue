@@ -1,7 +1,7 @@
 <script setup>
 
-    import { ref, computed, watch} from 'vue'
-    import Spiner from './Spiner.vue'
+    import { ref, computed, onMounted} from 'vue'
+    import LoadingBar from './LoadingBar.vue'
 
     // -------------PROPERTIES--------------
 
@@ -16,7 +16,13 @@
     const sortColumn = ref(null)
     const sortDir = ref('asc')
 
-    const props = defineProps(['headers', 'data','color'])
+    const props = defineProps({
+        headers:null, 
+        data:null,
+        color:{
+            default:'bg-gray-100'
+        }
+    })
     const data = computed(() => props.data )
 
 
@@ -110,12 +116,12 @@
         currentPage.value = 1
     }
 
-    watch(data,()=>{
+    onMounted(()=>{
         setTimeout(()=>{
             if(data.value.length === 0 && loading.value === true ){
                 loading.value = false
             }
-        },1500)
+        },2000)
     })
 
 </script>
@@ -125,7 +131,7 @@
         <div class="mt-6 md:flex md:items-center md:justify-between">
             <div  class="text-gray-400 flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
                 <span>Mostrar</span>
-                <select v-model="rowsPerPage" @change="resetPage" class="text-center bg-white font-bold w-full">
+                <select v-model="rowsPerPage" @change="resetPage" class="text-center bg-white font-bold w-full focus:outline-none ring-0">
                     <option>10</option>
                     <option>25</option>
                     <option>50</option>
@@ -145,15 +151,16 @@
                 <input v-model="search" type="search" placeholder="Search" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border-2 shadow-lg border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
             </div>
         </div>
+
         <div class="flex flex-col">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-5 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden border-2 border-gray-200 shadow-lg  md:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 ">
-                            <thead :class="color ?? 'bg-gray-100'" >
+                            <thead :class="color" >
                                 <tr>
                                     <th v-for="(head, index) in props.headers" :key="index" @click="(head.sort) ? sort(head.key) : ''" scope="col"
-                                        class="px-4 py-3.5 text-sm font-normal rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer"
+                                        class="px-4 py-3.5 text-sm font-normal rtl:text-right text-gray-400 cursor-pointer"
                                         :width="head.width" :align="head.align ?? 'left' ">
                                         <span v-if="sortColumn === head.key">{{ sortDir === 'asc' ? '▲' : '▼' }}</span>
                                         {{ head.title }}
@@ -173,13 +180,11 @@
                                 </slot>
                                 <tr v-if="loading">
                                     <td align="center" :colspan="props.headers.length">
+                                        <LoadingBar :color="color" class="px-10" />
                                         Cargando data 
-                                        <div class="flex justify-center">
-                                            <Spiner v-for="num in 4" class="border-b-gray-900 border-t-gray-900 h-6 border-2"/>
-                                        </div>
                                     </td>
                                 </tr>
-                                <tr v-if="filteredData.length === 0 && loading === false">
+                                <tr v-if="data.length === 0 && loading === false">
                                     <td align="center" :colspan="props.headers.length">
                                         No hay data ....
                                     </td>
@@ -191,12 +196,17 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between bg-white">
+        <div class="flex items-center justify-between bg-white mt-5">
+            <!-- RESPONSIVE MOBILE BUTTONS -->
             <div class="flex flex-1 justify-between md:hidden">
                 <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" href="#"
-                    class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                    class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Anterior
+                </a>
                 <a @click="(currentPage == totalPages) ? currentPage = totalPages : currentPage++" href="#"
-                    class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                    class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Siguiente
+                </a>
             </div>
 
             <div class="hidden md:flex md:flex-1 sm:items-center sm:justify-between">

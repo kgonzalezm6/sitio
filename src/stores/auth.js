@@ -1,45 +1,59 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
 import { ref } from 'vue'
 import router from '../router'
+import axios from 'axios';
+
 
 
 export const useAuthStore = defineStore('auth', () => {
 
-  const authUser = ref([])
+  const user = ref([])
   const roles = ref([])
-  const permisos = ref([])
-  
+  const permissions = ref([])
+  const loadingPage = ref(false)
+  const rolesApp = import.meta.env.VITE_MY_APPNAME
 
+  function login() {
+    loadingPage.value = true
+    if(localStorage.getItem('nit')){
+      axios.post('login',{
+        nit: localStorage.getItem('nit')
+      })
+      .then(response => {
+        if(!response.data.error){
+          const res = response.data
+          const role = response.data.roles.filter(role => role.app === rolesApp)
 
-  function fetchAuth () {
-    
-      axios.post( import.meta.env.VITE_MY_URL_BASE + 'auth')
-      .then( response => {
-        router.push({ name: 'home' })
-        authUser.value = response.data
-        roles.value = response.data.roles.map(role => role.nombre)
-        permisos.value = response.data.roles.map(role => role.permisos.filter(permiso => permiso.id)).flat().map(permiso => permiso.nombre)
-      
+          delete res.roles
+          res.roles = role.map(role => role.nombre)
+
+          user.value = res
+          roles.value = role.map(role => role.nombre)
+          permissions.value = role.map(role => role.permissions.filter(permission => permission.id).map(permission => permission.nombre)).flat()
+          
+          loadingPage.value = false
+        }else{
+          console.error(response.data)
+          router.push({name:'401-Unauthorize'})
+        }
+
       })
       .catch(err => {
-        router.push({ name: 'dontAutorization' })
+        console.error(err.response.data);
       })
-      
-    
+    }
   }
 
+  function checkPermission(el) {
+    for (var key in this.permissions) {
+      if (this.permissions.hasOwnProperty(key)) {
+        var value = this.permissions[key];
 
-  function checkPermiso(elemento) {
-    for (var clave in this.permisos) {
-      if (this.permisos.hasOwnProperty(clave)) {
-        var valor = this.permisos[clave];
-
-        if (valor === elemento) {
+        if (value === el) {
           return true;
         }
 
-        if (typeof valor === 'object' && checkPermiso(elemento)) {
+        if (typeof value === 'object' && checkPermission(el)) {
           return true;
         }
       }
@@ -50,11 +64,12 @@ export const useAuthStore = defineStore('auth', () => {
 
 
   return {
-    authUser,
+    user,
     roles,
-    permisos,
+    permissions,
+    loadingPage,
 
-    checkPermiso,
-    fetchAuth,
+    login,
+    checkPermission,
   }
 })

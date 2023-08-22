@@ -23,6 +23,10 @@ html {
     @apply bg-lime-500 border-lime-700 text-lime-200;
 }
 
+.btn-dark {
+    @apply bg-gray-600 border-gray-700 text-gray-200;
+}
+
 .input {
     @apply border-2 px-3 py-2 rounded-lg shadow-lg text-gray-500 w-full;
 }
