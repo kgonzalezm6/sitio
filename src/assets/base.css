@@ -1,7 +1,9 @@
-html {
-    scroll-behavior: smooth;
+@layer base {
+    html {
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
 }
-
 /* Buttons colors */
 .btn-primary {
     @apply bg-blue-500 border-blue-700 text-blue-200;

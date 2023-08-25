@@ -22,6 +22,7 @@ import datatable from './components/DataTable.vue'
 import Input from './components/Input.vue'
 import Card from './components/Card.vue'
 import ValidateErrors from './components/ValidateErrors.vue'
+
 import axios from 'axios'
 
 library.add(fas)
@@ -33,14 +34,14 @@ app.use(createPinia())
 app.use(router)
 
 app.component('icon', FontAwesomeIcon)
-app.component('modal', modal)
-app.component('tooltip', tooltip)
-app.component('toast', toast)
-app.component('datatable', datatable)
-app.component('btn', btn)
-app.component('text-field', Input)
-app.component('card', Card)
-app.component('validate-errors', ValidateErrors)
+.component('modal', modal)
+.component('tooltip', tooltip)
+.component('toast', toast)
+.component('datatable', datatable)
+.component('btn', btn)
+.component('text-field', Input)
+.component('card', Card)
+.component('validate-errors', ValidateErrors)
 
 app.mount('#app')
 

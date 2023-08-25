@@ -181,7 +181,7 @@
                                 <tr v-if="loading">
                                     <td align="center" :colspan="props.headers.length">
                                         <LoadingBar :color="color" class="px-10" />
-                                        Cargando data 
+                                        <span class="animate-ping">Cargando data ....</span> 
                                     </td>
                                 </tr>
                                 <tr v-if="data.length === 0 && loading === false">
@@ -199,12 +199,12 @@
         <div class="flex items-center justify-between bg-white mt-5">
             <!-- RESPONSIVE MOBILE BUTTONS -->
             <div class="flex flex-1 justify-between md:hidden">
-                <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" href="#"
-                    class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" 
+                    class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
                     Anterior
                 </a>
-                <a @click="(currentPage == totalPages) ? currentPage = totalPages : currentPage++" href="#"
-                    class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <a @click="(currentPage == totalPages) ? currentPage = totalPages : currentPage++" 
+                    class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
                     Siguiente
                 </a>
             </div>
@@ -223,29 +223,29 @@
                 </div>
                 <div v-show="filteredData.length >= 11 && displayedPages.length > 1">
                     <nav class="isolate inline-flex -space-x-px rounded-md border-2 shadow-lg" aria-label="Pagination">
-                        <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" href="#"
-                            class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" 
+                            class="cursor-pointer relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             <span class="sr-only">Previous</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                             </svg>
  
                         </a>
-                        <a @click="setCurrentPage(1)" href="#"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <a @click="setCurrentPage(1)" 
+                            class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             {{ 1 }}</a>
-                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">....</a>
-                        <a :class="{ 'bg-gray-400 text-white': page === currentPage }" v-for="page in displayedPages"
-                            :key="page" @click="setCurrentPage(page)" href="#"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-400 hover:text-gray-100 focus:z-20 focus:outline-offset-0">
+                        <span  class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">....</span>
+                        <a :class="{ 'bg-gray-400 text-white scale-125 z-10': page === currentPage }" v-for="page in displayedPages"
+                            :key="page" @click="setCurrentPage(page)" 
+                            class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 hover:text-gray-500 focus:z-20 focus:outline-offset-0">
                             {{ page }}
                         </a>
-                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">...</a>
-                        <a @click="setCurrentPage(totalPages)" href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <span  class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">....</span>
+                        <a @click="setCurrentPage(totalPages)"  class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             {{  totalPages }}
                         </a>
-                        <a @click="(currentPage == totalPages) ? currentPage = totalPages : currentPage ++" href="#"
-                            class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <a @click="(currentPage == totalPages) ? currentPage = totalPages : currentPage ++" 
+                            class="cursor-pointer relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             <span class="sr-only">Next</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />

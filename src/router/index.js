@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Default from '../layouts/Default.vue'
+import Layout from '../layouts/Default.vue'
 import Unauthorize from '../views/401-Unauthorize.vue'
 
 
@@ -10,16 +10,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Default,
+      component: Layout,
       meta: { //COLOCAR ESTA PROPIEDAD PARA PROTEGER RUTA 
-        auth : true,
-        progress: 20
+        auth : true
       }
     },
     {
       path: '/prueba',
       name: 'prueba',
-      component: Default,
+      component: Layout,
     },
     {
       path: '/401-Unauthorize',

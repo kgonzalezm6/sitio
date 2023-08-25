@@ -3,19 +3,26 @@
     import { useAuthStore } from '../stores/auth'
 
     const authStore = useAuthStore()
+    const props = defineProps({
+        title : {
+            default : 'Ejemplo de título'
+        }
+    })
     
 </script>
 
 <template>
     <nav class="fixed w-full top-0 h-16 px-5 py-1 bg-lime-500 shadow-lg border-b-2 border-lime-600 z-10">
-        <div class="flex justify-between items-start">
-            <a href="../../" class="flex space-x-4 items-center">
-                <img src="../assets/img/logoDcai.png" class="w-auto h-20">
-                <h1 class="text-3xl font-bold text-lime-100">Prescripciones</h1>
-            </a>
-            <div></div>
-            <div>
-                <UserCard :user="authStore.authUser" />
+        <div class="flex justify-between items-center">
+            <div class="flex space-x-2">
+                <a href="../../" class="">
+                    <img src="../assets/img/logoDcai.png" class="w-auto h-20 animate-rotate-y">
+                </a>
+                <h1 class="text-3xl font-bold text-lime-100 mt-2 hidden md:block">{{ props.title }}</h1>
+            </div>
+            <div class="flex-1"></div>
+            <div class="-mt-6">
+                <UserCard :user="authStore.user" />
             </div>
         </div>
     </nav>

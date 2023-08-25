@@ -10,9 +10,10 @@
    const headers = [
       {title:'nit',key:'nit', sort: true },
       {title:'empleado',key:'fullname'},
-      {title:'area',key:'area.descripcion', sort: true },
+      {title:'usuario',key:'usuario'},
+      {title:'puesto',key:'puesto'},
       {title:'status',key:'status', sort: true, align: 'center' },
-      {title:'area',key:'area.descripcion'},
+      {title:'area',key:'area.descripcion', sort: true },
       {title:'',key:'actions'},
    ];
 
@@ -39,6 +40,11 @@
       })
    })
 
+   const listJefes = computed(()=>{
+      const dataArray = new Set(users.value.map(user => user.depende))
+      return [...dataArray]
+   })
+
    function resultado(){
       if(result.value.length === 1){
          const res = result.value
@@ -62,7 +68,10 @@
 
 
 <template>
-   <input type="search" @change="resultado" v-model="search" placeholder="Buscar por nombre ...." class="input" list="data" autofocus>
+
+   <div class="flex justify-center">
+      <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" autofocus type="search" class="w-96"/>
+   </div>
    <datalist id="data">
       <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
    </datalist> 
@@ -86,11 +95,11 @@
                <hr class="my-4">
             </template>
             <div class="grid grid-cols-2 gap-4">
-               <text-field option="label" title="Nombre:" v-model="userResult.nombre" />
-               <text-field option="label" title="Apellido:" v-model="userResult.apellido"/>
-               <text-field option="label" title="nit:" v-model="userResult.nit"/>
-               <text-field option="label" title="correo:" v-model="userResult.emailmuni"/>
-               <text-field option="label" title="Area:" v-model="userResult.area.descripcion"/>
+               <text-field class="w-full" option="label" title="Nombre:" v-model="userResult.nombre" />
+               <text-field class="w-full" option="label" title="Apellido:" v-model="userResult.apellido"/>
+               <text-field class="w-full" option="label" title="nit:" v-model="userResult.nit"/>
+               <text-field class="w-full" option="label" title="correo:" v-model="userResult.emailmuni"/>
+               <text-field class="w-full" option="label" title="Area:" v-model="userResult.area.descripcion"/>
             </div>
             <template #footer>
                <div class="text-center">
@@ -108,18 +117,25 @@
                <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />
                <div class="grid">
                   <span>{{ item.fullname }}</span>
-                  <small class="text-xs">{{ item.emailmuni }}</small>
+                  <small class="text-xs font-normal">{{ item.emailmuni }}</small>
                </div>
             </div>
+         </template>
+         <template #puesto="{item}">
+            <span class="text-sm font-normal">{{ listJefes.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
          </template>
          <template #status="{item}">
             <icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />
             <icon v-else icon="fa-solid fa-user-xmark" class="text-red-500 text-xl" />
          </template>
          <template #actions="{item}">
-            <div class=" space-x-2">
-               <icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
-               <icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
+            <div class="flex space-x-2">
+               <tooltip message="Alguna acción">
+                  <icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
+               </tooltip>
+               <tooltip message="Otra acción">
+                  <icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
+               </tooltip>
             </div>
          </template>
       </datatable> 
