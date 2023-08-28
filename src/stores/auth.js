@@ -15,7 +15,9 @@ export const useAuthStore = defineStore('auth', () => {
 
   function login() {
     loadingPage.value = true
+
     if(localStorage.getItem('nit')){
+
       axios.post('login',{
         nit: localStorage.getItem('nit')
       })
@@ -32,7 +34,11 @@ export const useAuthStore = defineStore('auth', () => {
           permissions.value = role.map(role => role.permissions.filter(permission => permission.id).map(permission => permission.nombre)).flat()
           
           loadingPage.value = false
+
         }else{
+
+          loadingPage.value = false
+          
           console.error(response.data)
           router.push({name:'401-Unauthorize'})
         }

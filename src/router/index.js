@@ -13,13 +13,21 @@ const router = createRouter({
       component: Layout,
       meta: { //COLOCAR ESTA PROPIEDAD PARA PROTEGER RUTA 
         auth : true
-      }
+      },
+      children : [
+        {
+          path: '/crud',
+          name: 'crud',
+          component: () => import('../views/Test.vue')
+        },
+      ]
     },
     {
       path: '/prueba',
       name: 'prueba',
       component: Layout,
     },
+    
     {
       path: '/401-Unauthorize',
       name: '401-Unauthorize',
