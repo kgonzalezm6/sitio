@@ -111,7 +111,7 @@
    </card>
    <br>
    <card>
-      <datatable :headers="headers" :data="users" color="bg-gray-800" >
+      <datatable :headers="headers" :data="users" color="bg-gray-800 text-blue-500" >
          <template #fullname="{item}">
             <div class="flex items-center gap-3">
                <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />

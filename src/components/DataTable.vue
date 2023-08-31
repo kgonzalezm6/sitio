@@ -20,7 +20,7 @@
         headers:null, 
         data:null,
         color:{
-            default:'bg-gray-100'
+            default:'bg-gray-100 text-gray-400'
         }
     })
     const data = computed(() => props.data )
@@ -157,10 +157,10 @@
                 <div class="inline-block min-w-full py-5 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden border-2 border-gray-200 shadow-lg  md:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 ">
-                            <thead :class="color" >
-                                <tr>
+                            <thead>
+                                <tr :class="color">
                                     <th v-for="(head, index) in props.headers" :key="index" @click="(head.sort) ? sort(head.key) : ''" scope="col"
-                                        class="px-4 py-3.5 text-sm font-normal rtl:text-right text-gray-400 cursor-pointer"
+                                        class="px-4 py-3.5 text-sm font-normal rtl:text-right  cursor-pointer"
                                         :width="head.width" :align="head.align ?? 'left' ">
                                         <span v-if="sortColumn === head.key">{{ sortDir === 'asc' ? '▲' : '▼' }}</span>
                                         {{ head.title }}
