@@ -127,7 +127,8 @@
 </script>
 
 <template>
-    <section class="container px-6 mx-auto mb-8">
+    <section class="px-6 mx-auto mb-8 inline-block min-w-min">
+        
         <div class="mt-6 md:flex md:items-center md:justify-between">
             <div  class="text-gray-400 flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
                 <span>Mostrar</span>
@@ -154,7 +155,7 @@
 
         <div class="flex flex-col">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-5 align-middle md:px-6 lg:px-8">
+                <div class="inline-block min-w-min py-5 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden border-2 border-gray-200 shadow-lg  md:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 ">
                             <thead>
