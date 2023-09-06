@@ -34,5 +34,5 @@
 }
 
 .btn {
-    @apply border-2 px-4 py-2 rounded-full uppercase shadow-lg bg-opacity-90 hover:bg-opacity-100 focus:bg-opacity-100 font-bold active:scale-95;
+    @apply border-2 px-4 py-2 rounded-full uppercase shadow-lg bg-opacity-90 hover:bg-opacity-100 focus:bg-opacity-100 font-bold active:scale-95 disabled:bg-gray-400 disabled:shadow-black disabled:border-gray-600 disabled:text-gray-500 disabled:scale-95;
 }

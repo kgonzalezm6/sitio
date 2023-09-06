@@ -10,7 +10,7 @@
 </script>
 
 <template>
-    <button class="btn disabled:bg-gray-400 disabled:shadow-black disabled:border-gray-600 disabled:text-gray-500 disabled:scale-95"  :disabled="props.loading">
+    <button class="btn "  :disabled="props.loading">
         <div class="flex items-center space-x-1">
             <icon v-if="props.icon" :icon="icon"/>
             <small>
