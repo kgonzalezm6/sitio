@@ -11,6 +11,7 @@ import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import VueApexCharts from "vue3-apexcharts";
 
 
 // COMPONENTES INSTANCIADOS DE FORMA GLOBAL
@@ -32,6 +33,7 @@ axios.defaults.baseURL = import.meta.env.VITE_MY_URL_BASE
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
+app.use(VueApexCharts)
 
 app.component('icon', FontAwesomeIcon)
 .component('modal', modal)

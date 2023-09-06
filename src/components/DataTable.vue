@@ -1,6 +1,6 @@
 <script setup>
 
-    import { ref, computed, onMounted} from 'vue'
+    import { ref, computed,watch,onMounted} from 'vue'
     import LoadingBar from './LoadingBar.vue'
 
     // -------------PROPERTIES--------------
@@ -115,6 +115,14 @@
     const resetPage = () => {
         currentPage.value = 1
     }
+
+    watch(data,()=>{
+        setTimeout(()=>{
+            if(data.value.length === 0 && loading.value === true ){
+                loading.value = false
+            }
+        },2000)
+    })
 
     onMounted(()=>{
         setTimeout(()=>{

@@ -18,6 +18,21 @@
       {title:'',key:'actions'},
    ];
 
+   const options = ref({
+      chart: {
+         id: 'vuechart-example'
+      },
+      xaxis: {
+         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+      }
+   })
+   const series = ref([
+      {
+      name: 'series-1',
+      data: [30, 40, 45, 50, 49, 60, 70, 91]
+      }
+   ])
+
    const usr = ref([])
 
    function user (user) {
@@ -158,6 +173,14 @@
             </div>
          </template>
       </datatable> 
+   </card>
+   <card>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
+         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
+         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
+         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
+      </div>
    </card>
 
    <modal :open="open" >

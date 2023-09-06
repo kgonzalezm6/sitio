@@ -14,11 +14,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@vueuse/core": "^10.1.2",
+    "apexcharts": "^3.42.0",
     "axios": "^1.4.0",
     "pinia": "^2.0.36",
     "tailwindcss-animated": "^1.0.1",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vue3-apexcharts": "^1.4.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
