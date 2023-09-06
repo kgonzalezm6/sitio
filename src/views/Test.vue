@@ -7,6 +7,7 @@
    const search = ref('')
    const users = ref([])
    const userResult = ref([])
+   const loading = ref(false)
    const headers = [
       {title:'nit',key:'nit', sort: true },
       {title:'empleado',key:'fullname'},
@@ -60,14 +61,28 @@
       openAlert.value = false
    }
 
+   function moneda(valor){
+      const formatoMoneda = valor.toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' });
+      return formatoMoneda
+   }
+
    onMounted(() => {
       fetchUsers()
    })
+
+   function loadingBtn () {
+      loading.value = true
+      setTimeout(() => loading.value = false,3000)
+   }
+
+   
 
 </script>
 
 
 <template>
+
+   <btn @click="loadingBtn" text="Guardar" class="btn-danger shadow-red-800" :loading="loading" />
 
    <div class="flex justify-center">
       <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" autofocus type="search" class="w-96"/>
@@ -75,8 +90,10 @@
    <datalist id="data">
       <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
    </datalist> 
+
    <br>
    <br>
+
    <card v-if="userResult?.roles">
       <template #header>
          <h1 class="text-center text-2xl text-gray-500 font-bold">
@@ -109,7 +126,9 @@
          </card>
       </div>
    </card>
+
    <br>
+
    <card class="flex justify-center">
       <datatable :headers="headers" :data="users" color="bg-lime-600 text-lime-300" >
          <template #fullname="{item}">
@@ -140,6 +159,7 @@
          </template>
       </datatable> 
    </card>
+
    <modal :open="open" >
       <template #header>Ejemplo de modal</template>
       <div v-if="usr?.nombre" class="grid grid-cols-2 gap-4" >
