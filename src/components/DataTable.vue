@@ -135,7 +135,7 @@
 </script>
 
 <template>
-    <section class="px-6 mx-auto mb-8 inline-block min-w-min">
+    <section class="px-6 mx-auto mb-8">
         
         <div class="mt-6 md:flex md:items-center md:justify-between">
             <div  class="text-gray-400 flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
@@ -163,7 +163,7 @@
 
         <div class="flex flex-col">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-min py-5 align-middle md:px-6 lg:px-8">
+                <div class="inline-block min-w-full py-5 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden border-2 border-gray-200 shadow-lg  md:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 ">
                             <thead>
@@ -244,11 +244,11 @@
                             class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             {{ 1 }}</a>
                         <span  class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">....</span>
-                        <a :class="{ 'bg-gray-400 text-white scale-125 z-10': page === currentPage }" v-for="page in displayedPages"
-                            :key="page" @click="setCurrentPage(page)" 
-                            class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 hover:text-gray-500 focus:z-20 focus:outline-offset-0">
-                            {{ page }}
-                        </a>
+                            <a :class=" page === currentPage ? ' scale-125 z-10 ' + props.color : '' " v-for="page in displayedPages"
+                                :key="page" @click="setCurrentPage(page)" 
+                                class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 hover:text-gray-500 focus:z-20 focus:outline-offset-0">
+                                {{ page }}
+                            </a>
                         <span  class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">....</span>
                         <a @click="setCurrentPage(totalPages)"  class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:z-20 focus:outline-offset-0">
                             {{  totalPages }}

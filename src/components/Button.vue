@@ -16,7 +16,7 @@
             <small>
                 {{ text }}
             </small>
-            <spiner v-if="props.loading" class="border-b-gray-700 h-4" />
+            <spiner v-if="props.loading" class="border-b-gray-700 h-4 " />
         </div>
     </button>
 </template>

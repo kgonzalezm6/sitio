@@ -3,11 +3,16 @@
    import axios from 'axios'
    import { computed,ref,onMounted } from 'vue'
    import UserPhoto from '../components/UserPhoto.vue'
+   import Calendar from '../components/Calendar.vue'
 
    const search = ref('')
    const users = ref([])
    const userResult = ref([])
    const loading = ref(false)
+   const open = ref(false)
+   const openAlert = ref(false)
+   const usr = ref([])
+
    const headers = [
       {title:'nit',key:'nit', sort: true },
       {title:'empleado',key:'fullname'},
@@ -17,31 +22,30 @@
       {title:'area',key:'area.descripcion', sort: true },
       {title:'',key:'actions'},
    ];
-
-   const options = ref({
-      chart: {
-         id: 'vuechart-example'
-      },
-      xaxis: {
-         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+ 
+   const options = ref(
+      {
+         chart: {
+            height: 380,
+            type: "bar"
+         },
+         xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+         },
+         
       }
-   })
+   )
+
    const series = ref([
       {
-      name: 'series-1',
-      data: [30, 40, 45, 50, 49, 60, 70, 91]
+         data: [30, 40, 45, 50, 49, 60, 70, 81]
       }
    ])
-
-   const usr = ref([])
 
    function user (user) {
       open.value = true
       usr.value = user
    }
-
-   const open = ref(false)
-   const openAlert = ref(false)
 
    async function fetchUsers () {
       const response = await axios.get('users')
@@ -76,19 +80,45 @@
       openAlert.value = false
    }
 
-   function moneda(valor){
-      const formatoMoneda = valor.toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' });
-      return formatoMoneda
+   function updateChart() {
+      setInterval(() => {
+         const max = 90;
+         const min = 20;
+         const newData = series.value[0].data.map(() => {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+         })
+   
+         series.value = [{
+            data: newData
+         }]
+      }, 3000);
    }
 
    onMounted(() => {
       fetchUsers()
+      updateChart()
    })
+
 
    function loadingBtn () {
       loading.value = true
       setTimeout(() => loading.value = false,3000)
    }
+
+   const eventos = [
+      {title : 'Evento 1', description : 'Esta es la descripcion del evento que dice que carajos hacer 01', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento 2', description : 'Esta es la descripcion del evento que dice que carajos hacer 02', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento 3', description : 'Esta es la descripcion del evento que dice que carajos hacer 03', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento 4', description : 'Esta es la descripcion del evento que dice que carajos hacer 04', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento 5', description : 'Esta es la descripcion del evento que dice que carajos hacer 05', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento 6', description : 'Esta es la descripcion del evento que dice que carajos hacer 06', time : { start : '2023-09-07 06:30'}},
+      {title : 'Evento',   description : 'Esta es la descripcion del evento que dice que carajos hacer 07', time : { start : '2023-09-08 06:30'}},
+      {title : 'Evento 3', description : 'Esta es la descripcion del evento que dice que carajos hacer 08', time : { start : '2023-09-09 06:30'}},
+      {title : 'Evento 3', description : 'Esta es la descripcion del evento que dice que carajos hacer 09', time : { start : '2023-09-09 06:30'}},
+      {title : 'Evento 3', description : 'Esta es la descripcion del evento que dice que carajos hacer 10', time : { start : '2023-09-10 06:30'}},
+      {title : 'Evento 3', description : 'Esta es la descripcion del evento que dice que carajos hacer 11', time : { start : '2023-09-07 06:30'}},
+      {title : 'Dia de la independencia', description : 'Esta es la descripcion del evento que dice que carajos hacer 12', time : { start : '2023-09-15 06:30'}},
+   ]
 
    
 
@@ -96,18 +126,31 @@
 
 
 <template>
-
+   <card>
+      <Calendar :events="eventos" />
+   </card>
+   <br>
+   <br>
    <btn @click="loadingBtn" text="Guardar" class="btn-danger shadow-red-800" :loading="loading" />
+   <br>
+   <br>
+
+   <card>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+         <apexchart  type="bar" :options="options" :series="series"></apexchart>
+         <apexchart  type="bar" :options="options" :series="series"></apexchart>
+         <apexchart  type="bar" :options="options" :series="series"></apexchart>
+      </div>
+   </card>
+
+   <br>
 
    <div class="flex justify-center">
-      <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" autofocus type="search" class="w-96"/>
+      <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" type="search" class="w-96"/>
+      <datalist id="data">
+         <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
+      </datalist> 
    </div>
-   <datalist id="data">
-      <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
-   </datalist> 
-
-   <br>
-   <br>
 
    <card v-if="userResult?.roles">
       <template #header>
@@ -144,8 +187,8 @@
 
    <br>
 
-   <card class="flex justify-center">
-      <datatable :headers="headers" :data="users" color="bg-lime-600 text-lime-300" >
+   <card>
+      <datatable :headers="headers" :data="users" color="bg-lime-500 text-lime-100" >
          <template #fullname="{item}">
             <div class="flex items-center gap-3">
                <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />
@@ -174,14 +217,8 @@
          </template>
       </datatable> 
    </card>
-   <card>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
-         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
-         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
-         <apexchart class="w-full" type="bar" :options="options" :series="series"></apexchart>
-      </div>
-   </card>
+   <br>
+   
 
    <modal :open="open" >
       <template #header>Ejemplo de modal</template>

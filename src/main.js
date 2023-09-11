@@ -12,6 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import VueApexCharts from "vue3-apexcharts";
+import VueDatePicker from '@vuepic/vue-datepicker';
 
 
 // COMPONENTES INSTANCIADOS DE FORMA GLOBAL
@@ -44,6 +45,7 @@ app.component('icon', FontAwesomeIcon)
 .component('text-field', Input)
 .component('card', Card)
 .component('validate-errors', ValidateErrors)
+.component('datepicker', VueDatePicker)
 
 app.mount('#app')
 
