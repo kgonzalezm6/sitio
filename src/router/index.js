@@ -16,7 +16,7 @@ const router = createRouter({
       },
       children : [
         {
-          path: '/crud',
+          path: 'crud',
           name: 'crud',
           component: () => import('../views/Test.vue')
         },

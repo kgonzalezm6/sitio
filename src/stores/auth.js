@@ -15,39 +15,34 @@ export const useAuthStore = defineStore('auth', () => {
 
   function login() {
     loadingPage.value = true
+    axios.post('auth')
+    .then(response => {
+      if (!response.data.error) {
+        const res = response.data
+        const role = response.data.roles.filter(role => role.app === rolesApp)
 
-    if(localStorage.getItem('nit')){
+        delete res.roles
+        res.roles = role.map(role => role.nombre)
 
-      axios.post('login',{
-        nit: localStorage.getItem('nit')
-      })
-      .then(response => {
-        if(!response.data.error){
-          const res = response.data
-          const role = response.data.roles.filter(role => role.app === rolesApp)
+        user.value = res
+        roles.value = role.map(role => role.nombre)
+        permissions.value = role.map(role => role.permissions.filter(permission => permission.id).map(permission => permission.nombre)).flat()
 
-          delete res.roles
-          res.roles = role.map(role => role.nombre)
+        loadingPage.value = false
 
-          user.value = res
-          roles.value = role.map(role => role.nombre)
-          permissions.value = role.map(role => role.permissions.filter(permission => permission.id).map(permission => permission.nombre)).flat()
-          
-          loadingPage.value = false
+      } else {
 
-        }else{
+        loadingPage.value = false
 
-          loadingPage.value = false
-          
-          console.error(response.data)
-          router.push({name:'401-Unauthorize'})
-        }
+        console.error(response.data)
+        router.push({ name: '401-Unauthorize' })
+      }
 
-      })
-      .catch(err => {
-        console.error(err.response.data);
-      })
-    }
+    })
+    .catch(err => {
+      console.error(err.response.data);
+    })
+    
   }
 
   function checkPermission(el) {
