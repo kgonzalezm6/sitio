@@ -11,7 +11,7 @@
 </script>
 
 <template>
-<toast v-if="store.alert.message.length > 0" :message="store.alert.message" />
+<toast v-if="store.toast.message.length > 0" :message="store.toast.message" />
     <div class="bg-gray-100">
         <SideBar/>
         <TitlePage />

@@ -1,12 +1,12 @@
 <script setup>
-
    import axios from 'axios'
    import { computed,ref,onMounted } from 'vue'
+   import { useGlobalStore } from '../stores/global';
+
    import UserPhoto from '../components/UserPhoto.vue'
    import Calendar from '../components/Calendar.vue'
-   import DTableS from '../components/DTableS.vue'
-   import TitlePage from '../components/TitlePage.vue'
    
+   const store = useGlobalStore()
 
    const search = ref('')
    const users = ref([])
@@ -14,6 +14,7 @@
    const loading = ref(false)
    const open = ref(false)
    const openAlert = ref(false)
+   const openModal = ref(false)
    const usr = ref([])
 
    const headers = [
@@ -109,6 +110,7 @@
       setTimeout(() => loading.value = false,3000)
    }
 
+
    const eventos = [
       {title : 'Evento 1', description : 'Esta es la descripcion del evento que dice que carajos hacer 01', time : { start : '2023-09-07 06:30'}},
       {title : 'Evento 2', description : 'Esta es la descripcion del evento que dice que carajos hacer 02', time : { start : '2023-09-07 06:30'}},
@@ -130,18 +132,92 @@
 
 
 <template>
-   <TitlePage />
-   <card class="bg-white">
-      <!-- <DTableS /> -->
-   </card>
-   <br>
-   <br>
    <card class="bg-white">
       <Calendar :events="eventos" />
    </card>
    <br>
    <br>
-   <btn @click="loadingBtn" text="Guardar" class="btn-danger shadow-red-800" :loading="loading" />
+   <card class="bg-white">
+      <div>
+         <h1 class="text-3xl font-bold">Botones</h1>
+         <btn icon="fas fa-home" @click="loadingBtn" text="Primary" class="btn-primary shadow-blue-800" :loading="loading" />
+         <btn icon="fas fa-home" @click="loadingBtn" text="Success" class="btn-success shadow-green-800" :loading="loading" />
+         <btn icon="fas fa-home" @click="loadingBtn" text="Danger" class="btn-danger shadow-red-800" :loading="loading" />
+         <btn icon="fas fa-home" @click="loadingBtn" text="Warning" class="btn-warning shadow-orange-800" :loading="loading" />
+         <btn icon="fas fa-home" @click="loadingBtn" text="Dark" class="btn-dark shadow-gray-800" :loading="loading" />
+         <btn icon="fas fa-home" @click="loadingBtn" text="Muni" class="btn-muni shadow-lime-800" :loading="loading" />
+         <btn @click="loadingBtn" text="Cualquier color" class="bg-violet-500 text-violet-300 border-violet-700 shadow-violet-800" :loading="loading" />
+      </div>
+      <br>
+      <br>
+      <br>
+      <div>
+         <h1 class="text-3xl font-bold">Alertas Toast</h1>
+         <btn icon="fas fa-home" @click="store.setAlert('Toast Primary','primary')" text="Alert Toast Primary" class="btn-primary shadow-blue-800" />
+         <btn icon="fas fa-home" @click="store.setAlert('Toast Success','success')" text="Alert Toast Success" class="btn-success shadow-green-800" />
+         <btn icon="fas fa-home" @click="store.setAlert('Toast Danger','danger')" text="Alert Toast Danger" class="btn-danger shadow-red-800" />
+         <btn icon="fas fa-home" @click="store.setAlert('Toast Warning','warning')" text="Alert Toast Warning" class="btn-warning shadow-orange-800" />
+         <btn icon="fas fa-home" @click="store.setAlert('Toast Dark','dark')" text="Alert Toast Dark" class="btn-dark shadow-gray-800" />
+      </div>
+      <br>
+      <br>
+      <br>
+      <div>
+         <h1 class="text-3xl font-bold">Modal</h1>
+         <btn icon="fas fa-home" @click="openModal = true" text="Abrir Modal" class="btn-primary shadow-blue-800" />
+         <modal :open="openModal">
+            <template #header>
+               Aqui puede colocar un encabezado
+            </template>
+            <div class="grid lg:grid-cols-2 gap-4">
+               <text-field icon="fas fa-envelope" type="email" placeholder="example@example.com"/>
+               <text-field icon="fas fa-key" type="password" placeholder="************"/>
+               <select class="input">
+                  <option selected >Seleccione opcion</option>
+                  <option>option 1</option>
+                  <option>option 2</option>
+                  <option>option 3</option>
+                  <option>option 4</option>
+                  <option>option 5</option>
+               </select>
+               <text-field placeholder="Escribe aqui cualquier cosa .." />
+            </div>
+            <template #footer>
+               <btn @click="openModal = false" icon="fas fa-xmark" class="btn-danger" text="Cancelar" />
+               <btn icon="fas fa-check" class="btn-success" text="Aceptar" />
+            </template>
+         </modal>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div>
+         <h1 class="text-3xl font-bold">Iconos</h1>
+         <icon icon="fas fa-home" class="text-blue-muni text-xs" />
+         <icon icon="fas fa-home" class="text-lime-muni text-sm" />
+         <icon icon="fas fa-home" class="text-blue-500 text-base" />
+         <icon icon="fas fa-home" class="text-red-500 text-lg" />
+         <icon icon="fas fa-home" class="text-gray-500 text-xl" />
+         <icon icon="fas fa-home" class="text-violet-500 text-2xl" />
+      </div>   
+      <br>
+      <br>
+      <br>
+      <div class="grid lg:grid-cols-4 gap-4">
+         <text-field />
+         <text-field icon="fas fa-envelope" type="email" autocomplete="off" placeholder="example@example.com" />
+         <text-field icon="fas fa-key" type="password" autocomplete="off" placeholder="Password" />
+         <select class="input">
+            <option selected >Seleccione opcion</option>
+            <option>option 1</option>
+            <option>option 2</option>
+            <option>option 3</option>
+            <option>option 4</option>
+            <option>option 5</option>
+         </select>
+      </div>
+   </card>
+   
    <br>
    <br>
 

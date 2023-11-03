@@ -11,8 +11,8 @@
 
 <template>
     <button class="btn "  :disabled="props.loading">
-        <div class="flex items-center space-x-1">
-            <icon v-if="props.icon" :icon="icon"/>
+        <div class="flex items-center space-x-2">
+            <icon v-if="props.icon" :icon="icon" class="text-base"/>
             <small>
                 {{ text }}
             </small>
