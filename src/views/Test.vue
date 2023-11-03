@@ -1,10 +1,11 @@
 <script setup>
    import axios from 'axios'
    import { computed,ref,onMounted } from 'vue'
-   import { useGlobalStore } from '../stores/global';
+   import { useGlobalStore } from '../stores/global'
 
    import UserPhoto from '../components/UserPhoto.vue'
    import Calendar from '../components/Calendar.vue'
+
    
    const store = useGlobalStore()
 
@@ -100,6 +101,7 @@
    }
 
    onMounted(() => {
+      store.changeTitlePage('Test','fas fa-gear','text-red-200','bg-red-500 border-red-700')
       fetchUsers()
       updateChart()
    })
@@ -132,6 +134,8 @@
 
 
 <template>
+
+   
    <card class="bg-white">
       <Calendar :events="eventos" />
    </card>

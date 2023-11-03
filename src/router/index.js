@@ -18,8 +18,8 @@ const router = createRouter({
       },
       children : [
         {
-          path: 'crud',
-          name: 'crud',
+          path: 'test',
+          name: 'test',
           component: () => import('../views/Test.vue')
         },
         {

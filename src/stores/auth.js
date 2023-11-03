@@ -15,32 +15,32 @@ export const useAuthStore = defineStore('auth', () => {
 
   function login() {
     loadingPage.value = true
-    axios.post('login',{
-      app : rolesApp
+    axios.post('login', {
+      app: rolesApp
     })
-    .then(response => {
-      if (!response.data.error) {
+      .then(response => {
+        if (!response.data.error) {
 
-        user.value = response.data
-        roles.value = response.data.roles.map(role => role.nombre)
-        permissions.value = response.data.roles.map(role => role.permissions.map(permission => permission.nombre)).flat(Infinity)
-        permissions.value = Array.from(new Set(permissions.value))
-        
-        loadingPage.value = false
+          user.value = response.data
+          roles.value = response.data.roles.map(role => role.nombre)
+          permissions.value = response.data.roles.map(role => role.permissions.map(permission => permission.nombre)).flat(Infinity)
+          permissions.value = Array.from(new Set(permissions.value))
 
-      } else {
+          loadingPage.value = false
 
-        loadingPage.value = false
+        } else {
 
-        console.error(response.data)
-        router.push({ name: '401-Unauthorize' })
-      }
+          loadingPage.value = false
 
-    })
-    .catch(err => {
-      console.error(err);
-    })
-    
+          console.error(response.data)
+          router.push({ name: '401-Unauthorize' })
+        }
+
+      })
+      .catch(err => {
+        console.error(err);
+      })
+
   }
 
   function checkPermission(el) {
