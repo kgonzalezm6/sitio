@@ -15,19 +15,17 @@ export const useAuthStore = defineStore('auth', () => {
 
   function login() {
     loadingPage.value = true
-    axios.post('auth')
+    axios.post('login',{
+      app : rolesApp
+    })
     .then(response => {
       if (!response.data.error) {
-        const res = response.data
-        const role = response.data.roles.filter(role => role.app === rolesApp)
 
-        delete res.roles
-        res.roles = role.map(role => role.nombre)
-
-        user.value = res
-        roles.value = role.map(role => role.nombre)
-        permissions.value = role.map(role => role.permissions.filter(permission => permission.id).map(permission => permission.nombre)).flat()
-
+        user.value = response.data
+        roles.value = response.data.roles.map(role => role.nombre)
+        permissions.value = response.data.roles.map(role => role.permissions.map(permission => permission.nombre)).flat(Infinity)
+        permissions.value = Array.from(new Set(permissions.value))
+        
         loadingPage.value = false
 
       } else {
@@ -40,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     })
     
   }

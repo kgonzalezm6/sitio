@@ -16,7 +16,7 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <LoadingBar v-if="authStore.loadingPage"/>
+  <!-- <LoadingBar v-if="authStore.loadingPage"/> -->
   <RouterView />
   <BackTop />
 </template>

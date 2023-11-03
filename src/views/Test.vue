@@ -4,6 +4,9 @@
    import { computed,ref,onMounted } from 'vue'
    import UserPhoto from '../components/UserPhoto.vue'
    import Calendar from '../components/Calendar.vue'
+   import DTableS from '../components/DTableS.vue'
+   import TitlePage from '../components/TitlePage.vue'
+   
 
    const search = ref('')
    const users = ref([])
@@ -17,6 +20,7 @@
       {title:'nit',key:'nit', sort: true },
       {title:'empleado',key:'fullname'},
       {title:'usuario',key:'usuario'},
+      {title:'password',key:'pass'},
       {title:'puesto',key:'puesto'},
       {title:'status',key:'status', sort: true, align: 'center' },
       {title:'area',key:'area.descripcion', sort: true },
@@ -60,7 +64,7 @@
       })
    })
 
-   const listJefes = computed(()=>{
+   const bossList = computed(()=>{
       const dataArray = new Set(users.value.map(user => user.depende))
       return [...dataArray]
    })
@@ -126,7 +130,13 @@
 
 
 <template>
-   <card>
+   <TitlePage />
+   <card class="bg-white">
+      <!-- <DTableS /> -->
+   </card>
+   <br>
+   <br>
+   <card class="bg-white">
       <Calendar :events="eventos" />
    </card>
    <br>
@@ -135,7 +145,7 @@
    <br>
    <br>
 
-   <card>
+   <card class="bg-white">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
          <apexchart  type="bar" :options="options" :series="series"></apexchart>
          <apexchart  type="bar" :options="options" :series="series"></apexchart>
@@ -187,8 +197,8 @@
 
    <br>
 
-   <card>
-      <datatable :headers="headers" :data="users" color="bg-lime-500 text-lime-100" >
+   <card class="bg-white">
+      <datatable :headers="headers" :data="users" color="bg-lime-muni text-blue-muni" >
          <template #fullname="{item}">
             <div class="flex items-center gap-3">
                <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />
@@ -199,7 +209,7 @@
             </div>
          </template>
          <template #puesto="{item}">
-            <span class="text-sm font-normal">{{ listJefes.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
+            <span class="text-sm font-normal">{{ bossList.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
          </template>
          <template #status="{item}">
             <icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />

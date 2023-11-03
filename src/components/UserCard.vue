@@ -39,7 +39,7 @@ import axios from 'axios';
             
             <div class="font-bold text-gray-200 text-sm text-center">
                 <p>{{ props.user.smallname }}</p>
-                <p>{{ props.user.roles ? props.user.roles[0] : '' }}</p>
+                <p>{{ props.user.roles ? props.user.roles[0].nombre : '' }}</p>
             </div>
         </div>
 
@@ -52,7 +52,7 @@ import axios from 'axios';
                     <UserPhoto :user="user" class="h-12 w-12" />
                     <div class="font-bold text-sm">
                         <p>{{ props.user.smallname }}</p>
-                        <small>{{ props.user.emailmuni }}</small>
+                        <small>{{ props.user.emailmuni ?? '' }}</small>
                     </div>
                 </div>
                 
