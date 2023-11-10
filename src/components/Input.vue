@@ -1,5 +1,11 @@
 <script setup>
-    const props = defineProps(['icon','title','option','modelValue','error'])
+    const props = defineProps({
+        icon: '',
+        title: '',
+        option: '',
+        modelValue: '',
+        error: false
+    })
     defineEmits(['update:modelValue'])
     defineOptions({
         inheritAttrs: false
@@ -24,6 +30,6 @@
     </div>
     <div v-else class="input flex items-center bg-white" :class="{'border-red-500' : props.error }" >
         <icon v-if="props.icon" :icon="props.icon" class="text-gray-500 mr-2" />
-        <input v-bind="$attrs" :value="props.modelValue" @input="$emit('update:modelValue', $event.target.value)"  class="focus:outline-none h-9 text-lg w-full">
+        <input v-bind="$attrs" :value="props.modelValue" @input="$emit('update:modelValue', $event.target.value)"  class="focus:outline-none h-auto text-lg w-full">
     </div>
 </template>

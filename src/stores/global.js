@@ -7,7 +7,7 @@ export const useGlobalStore = defineStore('global', () => {
 
     // INICIO SIDEBAR
     //----------------------------------------
-    const openSidebar = ref(true)
+    const openSidebar = ref(false)
     
     function updateOpenSidebar () {
         openSidebar.value = !openSidebar.value
