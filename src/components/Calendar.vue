@@ -1,7 +1,7 @@
 <script setup>
 
     import { ref, onMounted, onUpdated } from "vue"
-    import "@vuepic/vue-datepicker/dist/main.css"
+    
 
     const props = defineProps({
         events: {}

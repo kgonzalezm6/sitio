@@ -169,10 +169,7 @@
       <div>
          <h1 class="text-3xl font-bold">Modal</h1>
          <btn icon="fas fa-home" @click="openModal = true" text="Abrir Modal" class="btn-primary shadow-blue-800" />
-         <modal :open="openModal">
-            <template #header>
-               Aqui puede colocar un encabezado
-            </template>
+         <modal :open="openModal" icon="fas fa-users" >
             <div class="grid lg:grid-cols-2 gap-4">
                <text-field icon="fas fa-envelope" type="email" placeholder="example@example.com"/>
                <text-field icon="fas fa-key" type="password" placeholder="************"/>

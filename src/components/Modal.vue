@@ -1,21 +1,35 @@
 <script setup>
-    const props = defineProps(['open','class'])
+    const props = defineProps({
+        open:{
+            type: Boolean,
+            default : false
+        },
+        title : {
+            type : String,
+            default : 'Escribe título'
+        },
+        icon : ''
+    })
+    defineOptions({
+        inheritAttrs: false
+    })
 </script>
 
 <template>
     <Transition>
         <div v-show="props.open" class ='inset-0 fixed h-screen bg-gray-900 bg-opacity-40 z-30 overflow-y-auto'>
             <div  class="relative flex justify-center mt-6">
-                <div class = "bg-white mx-4 max-w-4xl min-w-min rounded-lg shadow-lg border-2 overflow-hidden p-2" :class="props.class ?? ''">
-                    <header class=" border-b-2 p-2 flex justify-between items-start">
-                        <h1 class="text-3xl font-bold text-gray-500">
-                            <slot name="header"></slot>
-                        </h1>                
+                <div class = "bg-white mx-4 max-w-4xl min-w-min rounded-lg shadow-lg border-2 overflow-hidden p-2" v-bind="$attrs">
+                    <header class="flex items-center gap-x-2 py-2">
+                        <icon v-if="props.icon != ''" :icon="props.icon" class="text-orange-500 text-2xl" />
+                        <span class="text-2xl text-blue-muni font-semibold tracking-tight">{{ props.title }}</span>       
                     </header>
+                    <hr>
                     <section class="py-4 px-4">
                         <slot></slot>
                     </section>
-                    <footer class= "border-t-2 text-right p-4 flex justify-between">
+                    <hr>
+                    <footer class= "text-right p-4 flex justify-between">
                         <slot name="footer"></slot>
                     </footer>
                 </div>

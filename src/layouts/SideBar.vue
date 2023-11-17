@@ -19,7 +19,7 @@
             <!-- <icon @click="store.openSidebar = !store.openSidebar" icon="fa-solid fa-bars" class="text-white rounded-full bg-lime-500 text-xl p-3 border-2 border-lime-600 absolute -right-4 hover:scale-110 cursor-pointer" /> -->
             <div class="flex justify-center py-14">
                 <a @click="store.updateOpenSidebar" class="cursor-pointer">
-                    <img src="../assets/img/sidebar/logo.png" class="w-auto transition-[height] duration-500 ease-in-out" :class=" store.openSidebar ? 'h-32' : 'h-14'">
+                    <img src="../assets/img/logo.png" class="w-auto transition-[height] duration-500 ease-in-out" :class=" store.openSidebar ? 'h-32' : 'h-14'">
                 </a>
             </div>
             <div>

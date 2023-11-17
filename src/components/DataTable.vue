@@ -30,26 +30,22 @@
     // -------------COMPUTATED--------------
 
     props.headers.map(el => {
-        if (el.searchable) {
-            searchables.push(el.key.toLowerCase().trim())
-        }else{
-            searchables.push(el.key.toLowerCase().trim())
-        }
+        searchables.push(el.key.toLowerCase().trim())
     })
-
-    
 
     const filteredData = computed(() => {
         currentPage.value = 1
         loading.value = true
-        const searching = search.value.toLowerCase().trim()
+        const searchTerms = search.value.toLowerCase().trim().split(';').map(term => term.trim())
+        
         return sortedItems.value.filter((item) => {
-            return searchables.some((column) => {
-                const value = getObjectValue(item, column)
-                loading.value = false
-                return String(value).toLowerCase().includes(searching)
+            return searchTerms.every((searchTerm) => {
+                return searchables.some((column) => {
+                    const value = getObjectValue(item, column)
+                    loading.value = false
+                    return String(value).toLowerCase().includes(searchTerm)
+                })
             })
-            
         })
     })
 

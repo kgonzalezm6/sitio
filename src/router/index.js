@@ -11,7 +11,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Layout,
       meta: { //COLOCAR ESTA PROPIEDAD PARA PROTEGER RUTA 
         auth : true
@@ -19,12 +19,12 @@ const router = createRouter({
       children : [
         {
           path: 'test',
-          name: 'test',
+          name: 'Test',
           component: () => import('../views/Test.vue')
         },
         {
           path: '/prueba',
-          name: 'prueba',
+          name: 'Prueba',
           component: Prueba,
         },
         

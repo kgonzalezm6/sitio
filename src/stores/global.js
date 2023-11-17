@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 
 
@@ -17,8 +18,10 @@ export const useGlobalStore = defineStore('global', () => {
 
     // INICIO TITLE PAGE
     //----------------------------------------
+    const route = useRoute()
+
     const titlePage = ref({
-        title : 'Home',
+        title : route.name,
         icon : 'fas fa-home',
         textColor : 'text-white',
         color : 'bg-blue-muni'
