@@ -16,10 +16,9 @@
 <template>
     <div :class="store.openSidebar ? 'w-52' : 'w-20'" class="fixed hover:text-blue-600 z-20 h-screen transition-[width] duration-500 ease-in-out top-0">
         <div class="bg-lime-muni rounded-br-[6rem] border-2 border-lime-600 shadow-xl shadow-lime-800 h-screen overflow-auto no-scrollbar">
-            <!-- <icon @click="store.openSidebar = !store.openSidebar" icon="fa-solid fa-bars" class="text-white rounded-full bg-lime-500 text-xl p-3 border-2 border-lime-600 absolute -right-4 hover:scale-110 cursor-pointer" /> -->
-            <div class="flex justify-center py-14">
+            <div class="flex justify-center py-8">
                 <a @click="store.updateOpenSidebar" class="cursor-pointer">
-                    <img src="../assets/img/logo.png" class="w-auto transition-[height] duration-500 ease-in-out" :class=" store.openSidebar ? 'h-32' : 'h-14'">
+                    <img src="../assets/img/logo.png" class="w-auto transition-[height] duration-500 ease-in-out " :class=" store.openSidebar ? 'h-32' : 'h-16'">
                 </a>
             </div>
             <div>

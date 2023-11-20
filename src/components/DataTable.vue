@@ -21,7 +21,8 @@
         data:null,
         color:{
             default:'bg-gray-100 text-gray-400'
-        }
+        },
+        loading : false
     })
     const data = computed(() => props.data )
 

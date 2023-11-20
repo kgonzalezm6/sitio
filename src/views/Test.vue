@@ -2,7 +2,6 @@
    import axios from 'axios'
    import { computed,ref,onMounted } from 'vue'
    import { useGlobalStore } from '../stores/global'
-
    import UserPhoto from '../components/UserPhoto.vue'
    import Calendar from '../components/Calendar.vue'
 
@@ -128,8 +127,6 @@
       {title : 'Dia de la independencia', description : 'Esta es la descripcion del evento que dice que carajos hacer 12', time : { start : '2023-09-15 06:30'}},
    ]
 
-   
-
 </script>
 
 
@@ -223,7 +220,7 @@
    <br>
 
    <card class="bg-white">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2">
          <apexchart  type="bar" :options="options" :series="series"></apexchart>
          <apexchart  type="bar" :options="options" :series="series"></apexchart>
          <apexchart  type="bar" :options="options" :series="series"></apexchart>
@@ -232,11 +229,14 @@
 
    <br>
 
-   <div class="flex justify-center">
-      <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" type="search" class="w-96"/>
-      <datalist id="data">
-         <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
-      </datalist> 
+   <div class="w-full grid justify-items-center">
+      <small>Escribe un nombre y presiona la tecla ENTER</small>
+      <div class="flex justify-center">
+         <text-field option="label" title="Buscar por nombre:" v-model="search" list="data" @change="resultado" type="search" class="w-96"/>
+         <datalist id="data">
+            <option v-for="user in result" :key="user.nit" :value="user.fullname"></option>
+         </datalist>
+      </div>
    </div>
 
    <card v-if="userResult?.roles">
@@ -307,8 +307,7 @@
    <br>
    
 
-   <modal :open="open" >
-      <template #header>Ejemplo de modal</template>
+   <modal :open="open" title="Ejemplo de modal" icon="fas fa-user">
       <div v-if="usr?.nombre" class="grid grid-cols-2 gap-4" >
          <text-field option="label" title="Nombre:" v-model="usr.nombre" />
          <text-field option="label" title="Apellido:" v-model="usr.apellido"/>
@@ -323,10 +322,7 @@
       </template>
    </modal>
 
-   <modal :open="openAlert">
-      <template #header>
-          A T E N C I Ó N
-      </template>
+   <modal :open="openAlert" title=" A T E N C I O N ">
       <div class="flex justify-center items-center space-x-4">
          <icon icon="fa-solid fa-triangle-exclamation" class="text-7xl text-orange-500"  />
          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, provident quam? Quasi deleniti maxime accusamus nam facilis, minus corrupti quam necessitatibus. Voluptatibus aliquam temporibus unde doloribus hic culpa quos fugit.</p>

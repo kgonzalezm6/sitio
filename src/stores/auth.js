@@ -10,11 +10,12 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref([])
   const roles = ref([])
   const permissions = ref([])
-  const loadingPage = ref(false)
+  const loading = ref(false)
   const rolesApp = import.meta.env.VITE_MY_APPNAME
+  const errors = ref('')
 
   function login() {
-    loadingPage.value = true
+    loading.value = true
     axios.post('login', {
       app: rolesApp
     })
@@ -26,21 +27,27 @@ export const useAuthStore = defineStore('auth', () => {
           permissions.value = response.data.roles.map(role => role.permissions.map(permission => permission.nombre)).flat(Infinity)
           permissions.value = Array.from(new Set(permissions.value))
 
-          loadingPage.value = false
-
+          loading.value = false
+          localStorage.setItem('nit',user.value.nit)
+          // router.push({ name: ''})
         } else {
-
-          loadingPage.value = false
-
-          console.error(response.data)
-          router.push({ name: '401-Unauthorize' })
+          
+          errors.value = {error:[response.data.error]}
+          loading.value = false
+          
         }
 
       })
       .catch(err => {
-        console.error(err);
+        errors.value = err.response.data.errors
+        loading.value = false
       })
 
+  }
+
+  function logout () {
+    localStorage.clear();
+    // router.push({name:'Login'})
   }
 
   function checkPermission(el) {
@@ -66,9 +73,11 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     roles,
     permissions,
-    loadingPage,
+    errors,
+    loading,
 
     login,
+    logout,
     checkPermission,
   }
 })

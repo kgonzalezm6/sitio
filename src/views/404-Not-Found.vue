@@ -1,18 +1,21 @@
 <template>
     <div class="h-screen background bg-no-repeat bg-cover bg-center ">
-        
-        <div class="px-4 fixed top-14 cursor-pointer  left-0 bg-lime-muni rounded-r-lg w-36 py-4">
+        <div class="px-4 fixed top-14 cursor-pointer  left-0 bg-lime-muni rounded-r-lg w-36 py-4 border-r-2 border-y-2 border-blue-muni">
             <icon icon="fas fa-house-user" class="text-blue-muni text-3xl font-extrabold" />
             <span class="text-blue-muni text-xl font-extrabold">
                 Inicio
             </span>
         </div>
-        <div class="grid grid-cols-2 h-screen">
+        <div class="grid lg:grid-cols-2 h-screen">
             <div></div>
-            <div class="text-center self-center">
-                <img src="../assets/img/sidebar/logo.png" alt="MuniGuate Catastro" class="w-40 mx-auto">
-                <p class=" text-[200px] font-black text-lime-muni drop-shadow-sm"> 404 </p>
-                <h2 class="text-3xl font-semibold text-blue-muni">Pagina no encontrada.</h2>
+            <div class="flex flex-col">
+                <div class="flex-grow"></div>
+                <div class=" flex-grow text-center self-center">
+                    <img src="../assets/img/logo.png" alt="MuniGuate Catastro" class="w-48 mx-auto">
+                    <img src="../assets/img/404.png" alt="404 page not found" class=" mx-auto w-[35rem]">
+                    <h2 class="text-4xl font-semibold text-blue-muni">Página no encontrada.</h2>   
+                </div>
+                <span class="flex-grow text-blue-muni font-medium text-center ">© 2023 Dirección de Catastro y Administración del IUIS</span>
             </div>
         </div>
     </div>
@@ -22,4 +25,5 @@
 .background{
     background-image: url('../assets/img/bg.jpg');
 }
+
 </style>
