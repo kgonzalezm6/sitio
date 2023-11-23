@@ -5,6 +5,7 @@
     import { onMounted, ref, computed } from 'vue'
     import CardCollapse from '../components/CardCollapse.vue'
     import TitlePage from '../components/TitlePage.vue'
+import { rand } from '@vueuse/core'
     
     const authStore = useAuthStore()
     const menus = ref([])
@@ -31,6 +32,16 @@
         document.body.appendChild(link)
         link.click()
    }
+
+   const colors = [
+    'bg-[#f5333f]',
+    'bg-[#ffce00]',
+    'bg-[#ffce00]',
+    'bg-[#97d700]',
+    'bg-[#00bc70]',
+    'bg-[#54c8e8]',
+    'bg-[#1700a5]',
+   ]
 
 
 
@@ -64,7 +75,7 @@
         <br>
         <section class="flex justify-center items-center">
             <div class="grid lg:grid-cols-3 md:grid-cols-2 md:gap-x-14 md:gap-y-8 gap-3">
-                <CardCollapse v-for="(menu,index) in menus" :key="index" :menu="menu" />
+                <CardCollapse v-for="(menu,index) in menus" :key="index" :menu="menu" :class="colors[rand(0,6)]"/>
             </div>
         </section>
     </div>

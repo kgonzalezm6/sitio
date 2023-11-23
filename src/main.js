@@ -26,6 +26,7 @@ import datatable from './components/DataTable.vue'
 import Input from './components/Input.vue'
 import Card from './components/Card.vue'
 import ValidateErrors from './components/ValidateErrors.vue'
+import Logo from './components/Logo.vue'
 
 import axios from 'axios'
 
@@ -50,6 +51,7 @@ app.component('icon', FontAwesomeIcon)
 .component('card', Card)
 .component('validate-errors', ValidateErrors)
 .component('datepicker', VueDatePicker)
+.component('logo', Logo)
 
 app.mount('#app')
 

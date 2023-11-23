@@ -11,7 +11,7 @@
             <div class="flex flex-col">
                 <div class="flex-grow"></div>
                 <div class=" flex-grow text-center self-center">
-                    <img src="../assets/img/logo.png" alt="MuniGuate Catastro" class="w-48 mx-auto">
+                    <logo class="w-48 mx-auto" />
                     <img src="../assets/img/404.png" alt="404 page not found" class=" mx-auto w-[35rem]">
                     <h2 class="text-4xl font-semibold text-blue-muni">Página no encontrada.</h2>   
                 </div>

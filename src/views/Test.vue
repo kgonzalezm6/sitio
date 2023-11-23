@@ -12,6 +12,7 @@
    const users = ref([])
    const userResult = ref([])
    const loading = ref(false)
+   const loadingUsers = ref(false)
    const open = ref(false)
    const openAlert = ref(false)
    const openModal = ref(false)
@@ -53,8 +54,10 @@
    }
 
    async function fetchUsers () {
+      loadingUsers.value = true
       const response = await axios.get('users')
       users.value = response.data
+      loadingUsers.value = false
    }
 
    const result = computed(() => {
@@ -132,7 +135,37 @@
 
 <template>
 
-   
+   <card class="bg-white">
+      <datatable :headers="headers" :data="users" color="bg-lime-muni text-blue-muni" :loading="loadingUsers" >
+         <template #fullname="{item}">
+            <div class="flex items-center gap-3">
+               <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />
+               <div class="grid">
+                  <span>{{ item.fullname }}</span>
+                  <small class="text-xs font-normal">{{ item.emailmuni }}</small>
+               </div>
+            </div>
+         </template>
+         <template #puesto="{item}">
+            <span class="text-sm font-normal">{{ bossList.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
+         </template>
+         <template #status="{item}">
+            <icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />
+            <icon v-else icon="fa-solid fa-user-xmark" class="text-red-500 text-xl" />
+         </template>
+         <template #actions="{item}">
+            <div class="flex space-x-2">
+               <tooltip message="Alguna acción">
+                  <icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
+               </tooltip>
+               <tooltip message="Otra acción">
+                  <icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
+               </tooltip>
+            </div>
+         </template>
+      </datatable> 
+   </card>
+   <br>
    <card class="bg-white">
       <Calendar :events="eventos" />
    </card>
@@ -274,37 +307,7 @@
 
    <br>
 
-   <card class="bg-white">
-      <datatable :headers="headers" :data="users" color="bg-lime-muni text-blue-muni" >
-         <template #fullname="{item}">
-            <div class="flex items-center gap-3">
-               <UserPhoto :user="item" class="h-12 w-12 hover:scale-150 cursor-pointer" />
-               <div class="grid">
-                  <span>{{ item.fullname }}</span>
-                  <small class="text-xs font-normal">{{ item.emailmuni }}</small>
-               </div>
-            </div>
-         </template>
-         <template #puesto="{item}">
-            <span class="text-sm font-normal">{{ bossList.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
-         </template>
-         <template #status="{item}">
-            <icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />
-            <icon v-else icon="fa-solid fa-user-xmark" class="text-red-500 text-xl" />
-         </template>
-         <template #actions="{item}">
-            <div class="flex space-x-2">
-               <tooltip message="Alguna acción">
-                  <icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
-               </tooltip>
-               <tooltip message="Otra acción">
-                  <icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
-               </tooltip>
-            </div>
-         </template>
-      </datatable> 
-   </card>
-   <br>
+
    
 
    <modal :open="open" title="Ejemplo de modal" icon="fas fa-user">

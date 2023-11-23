@@ -8,8 +8,8 @@
 </script>
 
 <template>
-    <div @mouseleave="isHover = false">
-        <div class="border-2 rounded-lg shadow-xl p-5 cursor-pointer relative bg-white" @mouseenter="isHover = true" >
+    <div @mouseleave="isHover = false" class="border-2 rounded-lg shadow-xl">
+        <div class=" p-5 cursor-pointer relative overflow-hidden" @mouseenter="isHover = true" >
             <icon icon="fa-solid fa-people-group" class="text-6xl text-blue-800" />
             <h1 class="text-xl text-blue-900 font-bold uppercase">{{ props.menu.nombre }}</h1>
         </div>

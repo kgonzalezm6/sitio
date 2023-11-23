@@ -30,6 +30,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: () => import('../views/Login.vue'),
+    },
+    {
       path: '/401-Unauthorize',
       name: '401-Unauthorize',
       component: Unauthorize,

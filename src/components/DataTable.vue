@@ -7,7 +7,6 @@
 
     
     const search = ref('')
-    const loading = ref(false)
     const startIndex = ref(1)
     const endIndex = ref(1)
     const currentPage = ref(1)
@@ -36,14 +35,11 @@
 
     const filteredData = computed(() => {
         currentPage.value = 1
-        loading.value = true
         const searchTerms = search.value.toLowerCase().trim().split(';').map(term => term.trim())
-        
         return sortedItems.value.filter((item) => {
             return searchTerms.every((searchTerm) => {
                 return searchables.some((column) => {
                     const value = getObjectValue(item, column)
-                    loading.value = false
                     return String(value).toLowerCase().includes(searchTerm)
                 })
             })
@@ -113,18 +109,18 @@
         currentPage.value = 1
     }
 
-    watch(data,()=>{
-        setTimeout(()=>{
-            if(data.value.length === 0 && loading.value === true ){
-                loading.value = false
-            }
-        },2000)
-    })
+    // watch(data,()=>{
+    //     setTimeout(()=>{
+    //         if(data.value.length === 0 && loading.value === true ){
+    //             loading.value = false
+    //         }
+    //     },2000)
+    // })
 
     onMounted(()=>{
         setTimeout(()=>{
-            if(data.value.length === 0 && loading.value === true ){
-                loading.value = false
+            if(data.value.length === 0 && props.loading === true ){
+                props.loading = false
             }
         },2000)
     })
@@ -135,7 +131,7 @@
     <section class="px-6 mx-auto mb-8">
         
         <div class="mt-6 md:flex md:items-center md:justify-between">
-            <div  class="text-gray-400 flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
+            <div  class="flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
                 <span>Mostrar</span>
                 <select v-model="rowsPerPage" @change="resetPage" class="text-center bg-white font-bold w-full focus:outline-none ring-0">
                     <option>10</option>
@@ -184,13 +180,13 @@
                                         </td>
                                     </tr>
                                 </slot>
-                                <tr v-if="loading">
+                                <tr v-if="props.loading">
                                     <td align="center" :colspan="props.headers.length">
                                         <LoadingBar :color="color" class="px-10" />
                                         <span class="animate-ping">Cargando data ....</span> 
                                     </td>
                                 </tr>
-                                <tr v-if="data.length === 0 && loading === false">
+                                <tr v-if="data.length === 0 && props.loading === false">
                                     <td align="center" :colspan="props.headers.length">
                                         No hay data ....
                                     </td>
@@ -202,7 +198,7 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between bg-white mt-5">
+        <div class="flex items-center justify-between mt-5">
             <!-- RESPONSIVE MOBILE BUTTONS -->
             <div class="flex flex-1 justify-between md:hidden">
                 <a @click="(currentPage == 1) ? currentPage = 1 : currentPage--" 
