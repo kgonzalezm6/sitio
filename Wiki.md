@@ -354,6 +354,8 @@ En cuanto al tamaño del modal este se va a decuando a la valor contenido en el.
 ## ValidateErrors
 [<- Regresar al home ](home)
 
+Aun no trabajo en esto 
+
 
 
 
