@@ -5,5 +5,32 @@
 @tailwind components;
 @tailwind utilities;
 
-
+.nav-links-animation {
+    transform-origin: center right;
+    transform: translateX(-500%);
+    animation: nav-links-animation 2s ease-in-out forwards;
+}
+  @keyframes nav-links-animation {
+    0% {
+      transform: translateX(-2000%);
+    }
+    50% {
+      transform: translateX(-2000%);
+    }
+    65% {
+      transform: translateX(0%);
+    }
+    66% {
+      transform: scale(1.1, 0.5);
+    }
+    80% {
+      transform: scale(0.5, 1.1);
+    }
+    85% {
+      transform: scale(0.9, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 

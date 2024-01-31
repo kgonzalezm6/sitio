@@ -47,7 +47,7 @@ import { rand } from '@vueuse/core'
 
     onMounted(()=>{
         fetchMenu()
-    })
+    });
 
 </script>
 

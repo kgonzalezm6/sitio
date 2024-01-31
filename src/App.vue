@@ -16,7 +16,6 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <LoadingBar v-if="authStore.loading" class="fixed z-40"/>
   <RouterView />
   <BackTop />
 </template>

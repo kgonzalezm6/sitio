@@ -30,24 +30,24 @@
     // -------------COMPUTATED--------------
 
     props.headers.map(el => {
-        searchables.push(el.key.toLowerCase().trim())
+        searchables.push(el.key.trim())
     })
 
     const filteredData = computed(() => {
-        currentPage.value = 1
-        const searchTerms = search.value.toLowerCase().trim().split(';').map(term => term.trim())
-        return sortedItems.value.filter((item) => {
-            return searchTerms.every((searchTerm) => {
-                return searchables.some((column) => {
-                    const value = getObjectValue(item, column)
-                    return String(value).toLowerCase().includes(searchTerm)
-                })
+    currentPage.value = 1
+    const searchTerms = search.value.trim().split(';').map(term => term.trim().toLowerCase()) // Convertir términos de búsqueda a minúsculas
+    return sortedItems.value.filter((item) => {
+        return searchTerms.every((searchTerm) => {
+            return searchables.some((column) => {
+                const value = getObjectValue(item, column)
+                return String(value).toLowerCase().includes(searchTerm) // Convertir valores de columnas a minúsculas
             })
         })
     })
+});
 
     function getObjectValue(object, key) {
-        const keys = key.split('.')
+        const keys = key.split('.');
         return keys.reduce((value, currentKey) => {
             return value && value[currentKey]
         }, object)
@@ -150,7 +150,7 @@
                     </svg>
                 </span>
 
-                <input v-model="search" type="search" placeholder="Search" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border-2 shadow-lg border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                <input v-model="search" type="search" placeholder="Buscar" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border-2 shadow-lg border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
             </div>
         </div>
 
