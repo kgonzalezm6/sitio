@@ -25,51 +25,51 @@ const router = createRouter({
         auth : true
       },
       children : [
-        // {
-        //   path: '',
-        //   name: '',
-        //   component: MenuPrincipal
-        // },
-        // {
-        //   path: 'menupersona',
-        //   name: 'MenuPersona',
-        //   component: MenuPersona
-        // },
-        // {
-        //   path: 'serie',
-        //   name: 'Serie',
-        //   component: SerieMenu
-        // },
-        // {
-        //   path: 'empresa',
-        //   name: 'Home',
-        //   component: Empresa
-        // },
-        // {
-        //   path: 'pelicula',
-        //   name: 'Pelicula',
-        //   component: Pelicula
-        // },
-        // {
-        //   path: 'chica',
-        //   name: 'Chica',
-        //   component: Chica
-        // },
-        // {
-        //   path: '/empresa/:id',
-        //   name: 'empresadetalle',
-        //   component: EmpresaDetalle
-        // },
-        // {
-        //   path: '/pelicula/:id',
-        //   name: 'peliculadetalle',
-        //   component: PeliculaDetalle
-        // },
-        // {
-        //   path: '/chica/:id',
-        //   name: 'chicadetalle',
-        //   component: ChicaDetalle
-        // }
+        {
+          path: '',
+          name: '',
+          component: MenuPrincipal
+        },
+        {
+          path: 'menupersona',
+          name: 'MenuPersona',
+          component: MenuPersona
+        },
+        {
+          path: 'serie',
+          name: 'Serie',
+          component: SerieMenu
+        },
+        {
+          path: 'empresa',
+          name: 'Home',
+          component: Empresa
+        },
+        {
+          path: 'pelicula',
+          name: 'Pelicula',
+          component: Pelicula
+        },
+        {
+          path: 'chica',
+          name: 'Chica',
+          component: Chica
+        },
+        {
+          path: '/empresa/:id',
+          name: 'empresadetalle',
+          component: EmpresaDetalle
+        },
+        {
+          path: '/pelicula/:id',
+          name: 'peliculadetalle',
+          component: PeliculaDetalle
+        },
+        {
+          path: '/chica/:id',
+          name: 'chicadetalle',
+          component: ChicaDetalle
+        }
         
       ]
     },

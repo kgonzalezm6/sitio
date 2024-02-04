@@ -37,7 +37,7 @@ library.add(fas)
 library.add(fab)
 library.add(far)
 
-axios.defaults.baseURL = import.meta.env.VITE_MY_API_URL_BASE
+axios.defaults.baseURL = import.meta.env.VITE_MY_BASE
 
 const app = createApp(App)
 app.use(createPinia())
