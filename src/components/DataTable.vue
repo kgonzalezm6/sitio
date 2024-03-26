@@ -133,7 +133,8 @@
         <div class="mt-6 md:flex md:items-center md:justify-between">
             <div  class="flex items-center border-2 px-2 py-1.5 rounded-lg shadow-lg">
                 <span>Mostrar</span>
-                <select v-model="rowsPerPage" @change="resetPage" class="text-center bg-white font-bold w-full focus:outline-none ring-0">
+                <select v-model="rowsPerPage" @change="resetPage" class="text-center bg-white font-bold 
+                w-full focus:outline-none ring-0">
                     <option>10</option>
                     <option>25</option>
                     <option>50</option>
@@ -150,7 +151,10 @@
                     </svg>
                 </span>
 
-                <input v-model="search" type="search" placeholder="Buscar" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border-2 shadow-lg border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                <input v-model="search" type="search" placeholder="Buscar" class="block w-full py-1.5 pr-5 
+                text-gray-700 bg-white border-2 shadow-lg border-gray-200 rounded-lg md:w-80 
+                placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 
+                focus:outline-none focus:ring focus:ring-opacity-40">
             </div>
         </div>
 

@@ -8,13 +8,13 @@
             <text-field title="nacionalidad" option="select" name="NOMBRE_NACIONALIDAD" values="ID_NACIONALIDAD"
                 :datos="nacionalidadStore.nacionalidades" v-model="chicaStore.chica.ID_NACIONALIDAD" />
             <text-field title="cabello" option="select" name="NOMBRE_CABELLO" values="ID_CABELLO"
-                :datos="cabelloStore.cabellos" v-model="chicaStore.chica.ID_CABELLO" />
-            <text-field title="altura" type="number" min="80" option="label" v-model="chicaStore.chica.ALTURA_CHICA" />
-            <text-field title="peso" type="number" min="50" option="label" v-model="chicaStore.chica.PESO_CHICA" />
-            <text-field title="medidas" option="label" v-model="chicaStore.chica.MEDIDAS_CHICA" />
-            <text-field title="tatuajes" option="label" v-model="chicaStore.chica.TATUAJES_CHICA" />
-            <text-field title="piercing" option="label" v-model="chicaStore.chica.PIERCING_CHICA" />
-            <text-field title="alias" option="label" v-model="chicaStore.chica.ALIAS_CHICA" />
+                :datos="cabelloStore.cabellos" v-model="chicaStore.chica.ID_CABELLO" @keyup.esc="chicaStore.chica.ID_CABELLO=''" />
+            <text-field title="altura" type="number" min="80" option="label" v-model="chicaStore.chica.ALTURA_CHICA" @keyup.esc="chicaStore.chica.ALTURA_CHICA=''"/>
+            <text-field title="peso" type="number" min="50" option="label" v-model="chicaStore.chica.PESO_CHICA" @keyup.esc="chicaStore.chica.PESO_CHICA=''" />
+            <text-field title="medidas" option="label" v-model="chicaStore.chica.MEDIDAS_CHICA" @keyup.esc="chicaStore.chica.MEDIDAS_CHICA=''" />
+            <text-field title="tatuajes" option="label" v-model="chicaStore.chica.TATUAJES_CHICA" @keyup.esc="chicaStore.chica.TATUAJES_CHICA=''"/>
+            <text-field title="piercing" option="label" v-model="chicaStore.chica.PIERCING_CHICA" @keyup.esc="chicaStore.chica.PIERCING_CHICA=''"/>
+            <text-field title="alias" option="label" v-model="chicaStore.chica.ALIAS_CHICA" @keyup.esc="chicaStore.chica.ALIAS_CHICA=''" />
             <div class="col-span-2">
                 <text-field title="fecha de nacimiento" type="date" option="label"
                     v-model="chicaStore.chica.FECHANAC_CHICA" />
@@ -38,7 +38,7 @@
                 </label>
             </div>
             <div class="relative mb-3">
-                <datepicker year-picker :year-range="[2000, 2060]"
+                <datepicker year-picker :year-range="[chicaStore.chica.COMIENZO_CHICA, 2060]"
                     class="w-full peer m-0 block h-[58px] bg-white rounded border-2 focus-within:border-blue-400 
                     bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 
                     transition duration-200 ease-linear placeholder:text-transparent focus:border-primary 
@@ -55,19 +55,21 @@
             <text-field title="fecha fin" type="date" option="label" v-model="chicaStore.chica.FIN_CHICA" /> -->
 
             <div class="col-span-2">
-                <text-field title="instagram" option="label" type="url" v-model="chicaStore.chica.INSTAGRAM_CHICA" />
+                <text-field title="instagram" option="label" type="url" v-model="chicaStore.chica.INSTAGRAM_CHICA"
+                @keyup.esc="chicaStore.chica.INSTAGRAM_CHICA=''" />
             </div>
             <div class="col-span-2">
                 <text-field title="twitter" option="label" type="url" v-model="chicaStore.chica.TWITTER_CHICA"
-                    class="col-span-2" />
+                    class="col-span-2" @keyup.esc="chicaStore.chica.TWITTER_CHICA=''"/>
             </div>
             <div class="col-span-4">
-                <text-field title="foto" option="label" type="url" v-model="chicaStore.chica.FOTO_CHICA" />
+                <text-field title="foto" option="label" type="url" v-model="chicaStore.chica.FOTO_CHICA"
+                @keyup.esc="chicaStore.chica.FOTO_CHICA=''"  />
             </div>
 
         </div>
         <div class="flex items-center justify-center" v-if="chicaStore.chica.FOTO_CHICA">
-            <img :src="chicaStore.chica.FOTO_CHICA" :alt="chicaStore.chica.NOMBRE_CHICA">
+            <img :src="chicaStore.chica.FOTO_CHICA" :alt="chicaStore.chica.NOMBRE_CHICA" class="h-32">
         </div>
         <template #footer>
             <btn text="Guardar" icon="save" class="bg-green-500 text-white p-4 font-bold"

@@ -7,14 +7,11 @@
             name="NOMBRE_TIPO_PELICULA" values="ID_TIPO_PELICULA" v-model="peliculaStore.pelicula.ID_TIPO_PELICULA" />
             <text-field title="distribuidora" option="select" :datos="empresaStore.empresas" 
             name="NOMBRE_EMPRESA" values="ID_EMPRESA" v-model="peliculaStore.pelicula.ID_EMPRESA" />
-          
-            <!-- <div class="bg-gray-700 mx-auto">
-                <img :src="peliculaStore.onepelicula.FOTO_EMPRESA" :alt="peliculaStore.onepelicula.NOMBRE_EMPRESA">
-            </div> -->
         </div>
         <template #footer>
             <btn text="Guardar" icon="save" class="bg-green-500 text-white p-4 font-bold"
-                @click="peliculaStore.CreatePelicula()" />
+                @click="peliculaStore.CreatePelicula()"
+                :loading="peliculaStore.loadingNew" />
             <btn text="Cancelar" icon="x" class="bg-red-500 text-white p-4 font-bold"
                 @click="peliculaStore.isNew = false" />
         </template>

@@ -17,6 +17,7 @@ export const usePeliculaStore = defineStore('pelicula', {
     peliculas: [],
     total: null,
     tabla: false,
+    loadingNew : false,
     pelicula: {
       NOMBRE_PELICULA: '',
       SITIO_PELICULA: '',
@@ -130,6 +131,7 @@ export const usePeliculaStore = defineStore('pelicula', {
       for (let propiedad in objeto) {
         if (objeto.hasOwnProperty(propiedad)) {
           objeto[propiedad] = '';
+          "cancion es una confucion"
         }
       }
     },
@@ -241,7 +243,26 @@ export const usePeliculaStore = defineStore('pelicula', {
           alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
         })
     },
+    async DeleteEmpresa() {
+      try {
+        const globalStore = useGlobalStore();
+        const response = await axios.post(`${import.meta.env.VITE_MY_BASE}pelicula/delete/${this.onepelicula.ID_EMPRESA}`);
+    
+        if (response.status === 200) {
+          globalStore.setAlert("Eliminado exitosamente", "success");
+          setTimeout(() => {
+            this.isDelete = false;
+            this.getEmpresa();
+          }, 1000);
+        } else {
+          alert('Ha ocurrido un error al cargar la información');
+        }
+      } catch (err) {
+        alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+      }
+    },
     async CreatePelicula() {
+      this.loadingNew = true;
       const globalStore = useGlobalStore();
       const response = await axios.post(
           import.meta.env.VITE_MY_BASE + 'pelicula', this.pelicula)
@@ -253,6 +274,7 @@ export const usePeliculaStore = defineStore('pelicula', {
               this.isNew = false;
               this.getPelicula();
               this.isUnir = true;
+              // this.peliculachica.pelicula = this.pelicula;
             }, 1000);
           } else {
             alert('Ha ocurrido un error al cargar la información');
@@ -261,6 +283,9 @@ export const usePeliculaStore = defineStore('pelicula', {
         .catch(err => {
           alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
         })
+        .finally(
+          this.loadingNew = false
+        )
     },
     async UnirPelicula() {
       const globalStore = useGlobalStore();

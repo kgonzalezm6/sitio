@@ -1,32 +1,25 @@
-// Utilities
-import {
-  defineStore
-} from 'pinia'
-import axios from 'axios'
-import {
-  useGlobalStore
-} from './global'
-export const useEmpresaStore = defineStore('empresa', {
-  state: () => ({
-    id: null,
-    isEdit: false,
-    isNew: false,
-    isDelete: false,
-    date: [],
-    empresas: [],
-    total: null,
-    tabla: false,
-    empresa: {
+import { defineStore } from 'pinia';
+import { ref, axios, useGlobalStore, peticion } from '../functions/basic';
+export const useEmpresaStore = defineStore('empresa', () => {
+    const id = ref(null);
+    const isEdit= ref(false);
+    const isNew= ref(false);
+    const isDelete= ref(false);
+    const date= ref([]);
+    const empresas= ref([]);
+    const total= ref(null);
+    const tabla= ref(false);
+    const empresa= ref({
       NOMBRE_EMPRESA: '',
       SITIO_EMPRESA: '',
       FOTO_EMPRESA: ''
-    },
-    oneempresa: [],
-    tabs: [],
-    peliculas: [],
-    temporadasepisodios: {},
-    datosListos: false,
-    headerspeliculas: [{
+    });
+    const oneempresa= ref([]);
+    const tabs = ref([]);
+    const peliculas = ref([]);
+    const temporadasepisodios = ref({});
+    const datosListos = ref(false);
+    const headerspeliculas = ref([{
         title: 'ID',
         align: 'left',
         key: 'ID_PELICULA',
@@ -62,8 +55,8 @@ export const useEmpresaStore = defineStore('empresa', {
         key: 'actions',
         sort: true
       }
-    ],
-    headers: [{
+    ]);
+    const headers = ref([{
       title: 'ID',
       align: 'left',
       key: 'ID_EMPRESA',
@@ -99,117 +92,137 @@ export const useEmpresaStore = defineStore('empresa', {
       key: 'actions',
       sort: true
     }
-  ],
-  }),
-
-  actions: {
-    async getEmpresa() {
-      const response = await axios.get(
-          import.meta.env.VITE_MY_BASE + 'empresa')
+    ]);
+    async function getEmpresa() {
+        peticion(import.meta.env.VITE_MY_BASE + 'empresa', 'GET')
         .then(response => {
-          if (response.data.mensaje == "Exito") {
-            this.empresas = response.data.data;
-          } else {
-            console.log('Ha ocurrido un error al cargar la información');
-          }
+            if (response.mensaje == "Exito") {
+                    empresas.value = response.data;
+                } else {
+                    console.log('Ha ocurrido un error al cargar la información');
+                }
         })
-        .catch(err => {
-          console.error(err)
-          console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
-        })
-    },
-    open(item, type) {
-      this.oneempresa = [];
-      this.oneempresa = item;
-      if (type == 1) {
-        //view
+        .catch(error => {
+            // Manejo de errores aquí
+            console.error('Error en la solicitud:', error);
+        });
+      };
+      function open(item, type) {
+        oneempresa.value = [];
+        oneempresa.value = item;
+        if (type == 1) {
+          //view
+  
+        } else if (type == 2) {
+          //edit
+          isEdit.value = true;
+        } else {
+          isDelete.value = true;
+        }
+      };
+      async function getOneEmpresa() {
+        const response = await axios.get(
+            import.meta.env.VITE_MY_BASE + 'empresa/' + id.value)
+          .then(response => {
+            if (response.data.mensaje == "Exito") {
+              oneempresa.value = response.data.data[0];
+              response.data.data.forEach(element => {
+                peliculas = element.peliculas
+              });;
+              tabs.value = ['Peliculas','Graficas'];
+              datosListos.value = true;
+            } else {
+              console.log('Ha ocurrido un error al cargar la información');
+            }
+  
+  
+          })
+          .catch(err => {
+            console.error(err)
+            console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+          })
+      };
+      async function UpdateEmpresa() {
+        const globalStore = useGlobalStore();
+        const response = await axios.put(
+            import.meta.env.VITE_MY_BASE + 'empresa/' + oneempresa.value.ID_EMPRESA, oneempresa.value)
+          .then(response => {
+            if (response.status == 200) {
+              globalStore.setAlert("Actualizado", "success");
+              setTimeout(() => {
+                isEdit.value = false;
+                this.getEmpresa();
+              }, 1000);
+            } else {
+              alert('Ha ocurrido un error al cargar la información');
+            }
+          })
+          .catch(err => {
+            alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+          })
+      };
+      async function DeleteEmpresa() {
+        const globalStore = useGlobalStore();
+        const response = await axios.post(
+            import.meta.env.VITE_MY_BASE + 'empresa/delete/' + oneempresa.value.ID_EMPRESA)
+          .then(response => {
+            if (response.status == 200) {
+              globalStore.setAlert("Eliminado exitosamente", "success");
+              setTimeout(() => {
+                isDelete.value = false;
+                this.getEmpresa();
+              }, 1000);
+            } else {
+              alert('Ha ocurrido un error al cargar la información');
+            }
+          })
+          .catch(err => {
+            alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+          })
+      };
+      async function CreateEmpresa() {
+        const globalStore = useGlobalStore();
+        const response = await axios.post(
+            import.meta.env.VITE_MY_BASE + 'empresa', empresa.value)
+          .then(response => {
+            if (response.status == 200) {
+              globalStore.setAlert("Guardado", "success");
+              setTimeout(() => {
+                isEdit.value = false;
+                this.getEmpresa();
+              }, 1000);
+            } else {
+              alert('Ha ocurrido un error al cargar la información');
+            }
+          })
+          .catch(err => {
+            alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+          })
+      };
+    return {
+       id,
+       isEdit,
+       isNew,
+       isDelete,
+       date,
+       empresas,
+       total,
+       tabla,
+       empresa,
+       oneempresa,
+       tabs,
+       peliculas,
+       temporadasepisodios,
+       datosListos,
+       headerspeliculas,
+       headers, 
 
-      } else if (type == 2) {
-        //edit
-        this.isEdit = true;
-      } else {
-        this.isDelete = true;
-      }
-    },
-    async getOneEmpresa() {
-      const response = await axios.get(
-          import.meta.env.VITE_MY_BASE + 'empresa/' + this.id)
-        .then(response => {
-          if (response.data.mensaje == "Exito") {
-            this.oneempresa = response.data.data[0];
-            response.data.data.forEach(element => {
-              this.peliculas = element.peliculas
-            });;
-            this.tabs = ['Peliculas','Graficas'];
-            this.datosListos = true;
-          } else {
-            console.log('Ha ocurrido un error al cargar la información');
-          }
 
-
-        })
-        .catch(err => {
-          console.error(err)
-          console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
-        })
-    },
-    async UpdateEmpresa() {
-      const globalStore = useGlobalStore();
-      const response = await axios.put(
-          import.meta.env.VITE_MY_BASE + 'empresa/' + this.oneempresa.ID_EMPRESA, this.oneempresa)
-        .then(response => {
-          if (response.status == 200) {
-            globalStore.setAlert("Actualizado", "success");
-            setTimeout(() => {
-              this.isEdit = false;
-              this.getEmpresa();
-            }, 1000);
-          } else {
-            alert('Ha ocurrido un error al cargar la información');
-          }
-        })
-        .catch(err => {
-          alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
-        })
-    },
-    async DeleteEmpresa() {
-      const globalStore = useGlobalStore();
-      const response = await axios.post(
-          import.meta.env.VITE_MY_BASE + 'empresa/delete/' + this.oneempresa.ID_EMPRESA)
-        .then(response => {
-          if (response.status == 200) {
-            globalStore.setAlert("Eliminado exitosamente", "success");
-            setTimeout(() => {
-              this.isDelete = false;
-              this.getEmpresa();
-            }, 1000);
-          } else {
-            alert('Ha ocurrido un error al cargar la información');
-          }
-        })
-        .catch(err => {
-          alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
-        })
-    },
-    async CreateEmpresa() {
-      const globalStore = useGlobalStore();
-      const response = await axios.post(
-          import.meta.env.VITE_MY_BASE + 'empresa', this.empresa)
-        .then(response => {
-          if (response.status == 200) {
-            globalStore.setAlert("Guardado", "success");
-            setTimeout(() => {
-              this.isEdit = false;
-              this.getEmpresa();
-            }, 1000);
-          } else {
-            alert('Ha ocurrido un error al cargar la información');
-          }
-        })
-        .catch(err => {
-          alert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
-        })
-    },
-
-  }
-})
+       getEmpresa,
+       open,
+       getOneEmpresa,
+       UpdateEmpresa,
+       DeleteEmpresa,
+       CreateEmpresa
+    }
+});
