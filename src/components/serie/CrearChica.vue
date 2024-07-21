@@ -1,5 +1,5 @@
 <template>
-    <modal :open="chicaStore.isNew" title="Nuevo" icon="plus" class="w-2/3">
+    <!-- <modal :open="chicaStore.isNew" title="Nuevo" icon="plus" class="w-2/3">
         <div class="grid grid-cols-4 gap-3">
             <text-field title="Nombre" option="label" v-model="chicaStore.chica.NOMBRE_CHICA" />
 
@@ -22,7 +22,7 @@
             <text-field title="astrologia" option="select" v-model="chicaStore.chica.ID_ASTROLOGIA" name="NOMBRE_ASTROLOGIA"
                 values="ID_ASTROLOGIA" :datos="astrologiaStore.astrologias" />
             <text-field title="lugar nacimiento" option="select" v-model="chicaStore.chica.ID_LUGARNAC"
-                name="NOMBRE_LUGARNAC" values="ID_LUGARNAC" :datos="lugarnacStore.lugarnacimiento" />
+                name="NOMBRE_LUGARNAC" values="ID_LUGARNAC" :datos="lugarnacStore.lugarnac" />
             <div class="relative mb-3">
                 <datepicker year-picker :year-range="[1995, 2040]"
                     class="w-full peer m-0 block h-[58px] bg-white rounded border-2 focus-within:border-blue-400 
@@ -51,8 +51,7 @@
                     FECHA FIN
                 </label>
             </div>
-            <!-- <text-field title="fecha comienzo" type="date" option="label" v-model="chicaStore.chica.COMIENZO_CHICA" />
-            <text-field title="fecha fin" type="date" option="label" v-model="chicaStore.chica.FIN_CHICA" /> -->
+
 
             <div class="col-span-2">
                 <text-field title="instagram" option="label" type="url" v-model="chicaStore.chica.INSTAGRAM_CHICA"
@@ -76,7 +75,7 @@
                 @click="chicaStore.CreateChica()" />
             <btn text="Cancelar" icon="x" class="bg-red-500 text-white p-4 font-bold" @click="chicaStore.isNew = false" />
         </template>
-    </modal>
+    </modal> -->
 </template>
 <script setup>
 import { onBeforeMount, ref, watchEffect } from 'vue';
@@ -87,16 +86,16 @@ import { useCabelloStore } from '../../stores/cabello';
 import { useAstrologiaStore } from '../../stores/astrologia';
 import { useLugarnacStore } from '../../stores/lugarnac';
 const chicaStore = useChicaStore();
-const etniaStore = useEtniaStore();
-const nacionalidadStore = useNacionalidadStore();
-const cabelloStore = useCabelloStore();
-const astrologiaStore = useAstrologiaStore();
-const lugarnacStore = useLugarnacStore();
+// const etniaStore = useEtniaStore();
+// const nacionalidadStore = useNacionalidadStore();
+// const cabelloStore = useCabelloStore();
+// const astrologiaStore = useAstrologiaStore();
+// const lugarnacStore = useLugarnacStore();
 onBeforeMount(() => {
-    etniaStore.getEtnia();
-    nacionalidadStore.getNacionalidad();
-    cabelloStore.getCabello();
-    astrologiaStore.getAstrologia();
-    lugarnacStore.getLugarnac();
+    // etniaStore.getEtnia();
+    // nacionalidadStore.getNacionalidad();
+    // cabelloStore.getCabello();
+    // astrologiaStore.getAstrologia();
+    // lugarnacStore.getLugarnac();
 });
 </script>

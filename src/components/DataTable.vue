@@ -66,17 +66,6 @@
     }
 
 
-    const sortedItems = computed(() => {
-        if (sortColumn.value) {
-            return data.value.sort((a, b) => {
-                const valA = String(getObjectValue(a, sortColumn.value));
-                const valB = String(getObjectValue(b, sortColumn.value));
-                return sortDir.value === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
-            });
-        }
-        return data.value;
-    });
-
     const displayedPages = computed(() => {
 
         const totalDisplayedPages = 6
@@ -95,16 +84,31 @@
     // -------------METHODS--------------
 
     function sort(column) {
-        
-        if (sortColumn.value === column) {
-            sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc';
-        } else {
-            sortColumn.value = column;
-            sortDir.value = 'asc';
-        }
-        
+    if (sortColumn.value === column) {
+        sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc';
+    } else {
+        sortColumn.value = column;
+        sortDir.value = 'asc';
     }
+}
 
+const sortedItems = computed(() => {
+    if (sortColumn.value) {
+        return data.value.slice().sort((a, b) => {
+            const valA = getObjectValue(a, sortColumn.value);
+            const valB = getObjectValue(b, sortColumn.value);
+            
+            if (typeof valA === 'number' && typeof valB === 'number') {
+                // Comparación numérica
+                return sortDir.value === 'asc' ? valA - valB : valB - valA;
+            } else {
+                // Comparación de texto
+                return sortDir.value === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            }
+        });
+    }
+    return data.value;
+});
     const resetPage = () => {
         currentPage.value = 1
     }
@@ -187,12 +191,12 @@
                                 <tr v-if="props.loading">
                                     <td align="center" :colspan="props.headers.length">
                                         <LoadingBar :color="color" class="px-10" />
-                                        <span class="animate-ping">Cargando data ....</span> 
+                                        <span class="animate-ping">Cargando datos ....</span> 
                                     </td>
                                 </tr>
                                 <tr v-if="data.length === 0 && props.loading === false">
                                     <td align="center" :colspan="props.headers.length">
-                                        No hay data ....
+                                        No hay datos ....
                                     </td>
                                 </tr>
                             </tbody>

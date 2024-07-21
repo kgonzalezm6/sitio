@@ -1,84 +1,59 @@
 <template>
-    <icon icon="folder-open" class="h-72 w-72 text-center bg-yellow-200
-     text-orange-400 p-6 rounded-xl" @click="open = true">
-
-    </icon>
-    <modal :open="open" class="bg-slate-700 w-5/6">
-        <div v-if="images.length > 0" class="flex justify-center">
-        <button @click="prevSlide()" class="mr-auto text-4xl hover:scale-150">&lt;</button>
-        <img :src="images[currentSlide]" alt="" class="w-96 object-cover">
-        <button @click="nextSlide()" class="ml-auto text-4xl hover:scale-150">&gt;</button>
+  <div>
+    <div class="w-full rounded-lg">
+        <div class="text-3xl text-white font-extrabold w-full bg-[#2ba8d5] pl-10">Mis Series</div>
+        <div class="text-xs text-gray-400 font-semibold w-full bg-[#313234] h-10 flex items-center">
+          <span class="pl-10"></span>
+          <span 
+            v-for="(tab, index) in tabs" 
+            :key="index" 
+            @click="activeTab = index"
+            :class="[activeTab === index ? 'text-white bg-[#2ba8d5] rounded-sm' : '']"
+            class=" px-2">
+            {{ tab.name }}
+          </span>
         </div>
-        <div class="flex mt-8 justify-center">
-            <!-- <button @click="prevSlide()" class="mr-auto text-4xl hover:scale-150">&lt;</button> -->
-            <button @click="prevPage()" :disabled="currentPage === 1" class="mr-2 px-4 py-2 
-            text-black rounded ">&lt;</button>
-            <div v-for="(image, index) in displayedImages" :key="index" class="flex-shrink-0">
-                <img :src="image" alt="" class="h-36 p-2 hover:border-2 hover:border-blue-800"
-                @click="get(index)">
+        <div class="text-3xl text-white font-extrabold w-full bg-[#e8e8dc]">
+          <div v-if="activeTab === 0">
+            <div class="grid grid-cols-7 gap-1">
+              <div v-for="i in series" class="p-10">
+                <tooltip :message="i.nombre">
+                  <img :src="i.imagen" alt="" srcset="" class="h-40">
+                </tooltip>
+              </div>
             </div>
-            <!-- <button @click="nextSlide()" class="ml-auto text-4xl hover:scale-150">&gt;</button> -->
-            <button @click="nextPage()" :disabled="currentPage === totalPages" class="px-4 py-2 
-            text-black">&gt;</button>
+          </div>
+          <div v-if="activeTab === 1">
+            2
+          </div>
         </div>
-        <template #footer>
-            <btn text="Cerrar" @click="open = false" class="bg-red-500 text-white" />
-        </template>
-    </modal>
-  </template>
-  
-  <script setup>
-  import { ref, computed } from 'vue';
-const itemsPerPage = 5;
-const currentPage = ref(1);
-const open = ref(false);
-const images = ref([ 'https://th.wallhaven.cc/lg/6d/6d7xmx.jpg',
-                        'https://th.wallhaven.cc/lg/ex/exrqrr.jpg',
-                        'https://th.wallhaven.cc/lg/kx/kxrro7.jpg',
-                        'https://th.wallhaven.cc/small/85/8586my.jpg',
-                        'https://th.wallhaven.cc/small/x6/x6wjkv.jpg',
-                        'https://th.wallhaven.cc/small/qz/qz5r6q.jpg',
-                        'https://th.wallhaven.cc/small/zy/zy2x7v.jpg',
-                        'https://th.wallhaven.cc/small/o5/o5762l.jpg',
-                        'https://th.wallhaven.cc/small/kx/kxj3l1.jpg'
-                    ]);
-let currentSlide = ref(0);
-const totalPages = computed(() => Math.ceil(images.value.length / itemsPerPage));
+        <div class="text-3xl text-white font-extrabold w-full bg-[#d5d3be] h-32"></div>
+    </div>
+  </div>
+</template>
 
-const displayedImages = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return images.value.slice(startIndex, endIndex);
-});
+<script setup>
+import { ref, onMounted, computed } from 'vue';
+import { useSerieStore } from '@/stores/serie'
+  const tabs = [
+  {id:'1',name:'Para ver'},
+  {id:'2',name:'Siguiendo'},
+  {id:'3',name:'Pendientes'},
+  {id:'4',name:'Finalizadas'},
+  ];
+  const activeTab = ref(0);
+  const store = useSerieStore();
 
-  
-  const nextSlide = () => {
-    const ima = images.value.length - 1
-    if(currentSlide.value < ima){
-        currentSlide.value = (currentSlide.value + 1);
-    }
-    
-  };
-  
-  const prevSlide = () => {
-    if(currentSlide.value > 0){
-    currentSlide.value= (currentSlide.value - 1);
-    }
-  };
-  const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  }
-};
+  const series = computed(() => {
+    return store.series.filter(i => {
+        return i.estado === 'E'; // Asegúrate de devolver el resultado de la condición de igualdad
+    });
+  }); 
+  onMounted(() => {
+    store.getSerie();
+  });
+</script>
 
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-  function get(index){
-    currentSlide.value = index;
-};
-  </script>
-  
- 
+<style lang="css" scoped>
+
+</style>

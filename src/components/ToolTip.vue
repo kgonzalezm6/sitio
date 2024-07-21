@@ -8,7 +8,7 @@
             <slot name="title">
 
             </slot>
-            <slot name="message">
+            <slot name="message" class="text-red-500">
                 {{ props.message }}
             </slot>
         </span>

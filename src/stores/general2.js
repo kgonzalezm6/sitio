@@ -10,7 +10,7 @@ import {
   useAstrologiaStore
 } from './astrologia';
 import {
-  useCabelloStore
+  usecabelloStore
 } from './cabello';
 import {
   useEtniaStore
@@ -26,7 +26,7 @@ import {
 } from './busto';
 import {
   useGluteoStore
-} from './gluteo';
+} from './gluteo2';
 export const useGeneralStore = defineStore('general', {
   state: () => ({
     id: null,

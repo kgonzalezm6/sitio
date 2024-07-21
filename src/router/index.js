@@ -5,15 +5,18 @@ import NotFound from '../views/404-Not-Found.vue'
 import Empresa from '../views/EmpresaView.vue'
 import Pelicula from '../views/PeliculaView.vue'
 import Chica from '../views/ChicaView.vue'
-import Actriz from '../views/ActricesView.vue'
+import Actriz from '../views/Actrices/ActricesView.vue'
 import Serie from '../views/SerieView.vue'
 import EmpresaDetalle from '../views/EmpresaDetalleView.vue'
 import PeliculaDetalle from '../views/PeliculaDetalleView.vue'
 import ChicaDetalle from '../views/ChicaDetalleView.vue'
+import ActricesDetalle from '../views/ActrizDetalleView.vue'
 import MenuPrincipal from '../views/MenuPrincipal.vue'
 import MenuPersona from '../views/MenuPersona.vue'
 import SerieMenu from '../views/Serie.vue'
 import Portfolio from '../views/Portfolio.vue'
+import Series from '@/views/Series/Series.vue'
+import SeriesDetalle from '@/views/Series/SerieDetalle.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_MY_URL),
   routes: [
@@ -54,6 +57,26 @@ const router = createRouter({
           path: 'chica',
           name: 'Chica',
           component: Chica
+        },
+        {
+          path: 'series',
+          name: 'Series',
+          component: Series
+        },
+        {
+          path: '/seriedetalle/:id',
+          name: 'seriedetalle',
+          component: SeriesDetalle
+        },
+        {
+          path: 'actrices',
+          name: 'Actrices',
+          component: Actriz
+        },
+        {
+          path: 'actrizdetalle/:id',
+          name: 'actrizdetalle',
+          component: ActricesDetalle
         },
         {
           path: '/empresa/:id',

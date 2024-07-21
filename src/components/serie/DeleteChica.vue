@@ -1,5 +1,5 @@
 <template>
-    <modal :open="store.isEdit" title="Editar" icon="pen-to-square" class="w-2/3">
+    <modal :open="store.isDelete" title="Eliminar" icon="pen-to-square" class="w-2/3">
         <div class="grid grid-cols-4 gap-3">
             <text-field title="Nombre" option="label" v-model="store.onechica.nombre" />
             <text-field title="etnia" option="select" 
@@ -38,9 +38,9 @@
         </div>
         <template #footer>
             <btn text="Guardar" icon="save" class="bg-green-500 text-white p-4 font-bold"
-                @click="store.UpdatedChica()" :loading="store.loading_update"/>
+                @click="store.DeleteChica()" :loading="store.loading_delete"/>
             <btn text="Cancelar" icon="x" class="bg-red-500 text-white p-4 font-bold"
-                @click="store.isEdit = false" />
+                @click="store.isDelete = false" />
         </template>
     </modal>
 </template>
@@ -58,11 +58,5 @@ const nacionalidadStore = useNacionalidadStore();
 const cabelloStore = useCabelloStore();
 const astrologiaStore = useAstrologiaStore();
 const lugarnacStore = useLugarnacStore();
-onBeforeMount(() => {
-    // etniaStore.getEtnia();  
-    // nacionalidadStore.getNacionalidad();
-    // cabelloStore.getCabello();
-    // astrologiaStore.getAstrologia();
-    // lugarnacStore.getLugarnac();
-});
+
 </script>

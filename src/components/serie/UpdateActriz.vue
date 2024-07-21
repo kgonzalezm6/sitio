@@ -1,14 +1,9 @@
 <template>
-    <modal :open="actrizStore.isEdit" title="Editar" icon="pen-to-square">
-           
-        <div class="grid grid-cols-4 gap-2">
-            <img :src="actrizStore.oneactriz.FOTO_ACTRIZ" :alt="actrizStore.oneactriz.NOMBRE_ACTRIZ" srcset=""
-                class="row-span-4">
-            <div class="mt-7">
-                <textfield title="NOMBRE" option="label" v-model="actrizStore.oneactriz.NOMBRE_ACTRIZ" />
-            </div>
-            <div class="relative mb-3 mt-7">
-                <input type="date" v-model="actrizStore.oneactriz.FECHANAC_ACTRIZ" class="w-full h-[58px] peer m-0 block rounded border-2 focus-within:border-blue-400
+    <modal :open="store.opcion_editar" title="Editar" icon="pen-to-square" class="w-2/3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <text-field title="NOMBRE" option="label" v-model="store.oneactriz.nombre" />
+            <div class="relative">
+                <input type="date" v-model="store.oneactriz.fechanac" class="w-full h-[58px] peer m-0 block rounded border-2 focus-within:border-blue-400
                              bg-white bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight
                             text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent 
                             focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 
@@ -24,33 +19,33 @@
                     FECHA DE NACIMIENTO
                 </label>
             </div>
-            <div class="mt-7">
-                <selectfield v-model="actrizStore.oneactriz.ID_ASTROLOGIA" :options="astrologiaStore.astrologias"
-                    title="ASTROLOGIA" displayField="NOMBRE_ASTROLOGIA" valueField="ID_ASTROLOGIA" />
+            <div class="flex justify-center row-span-3">
+                <img :src="store.oneactriz.foto" :alt="store.oneactriz.nombre" srcset="">
             </div>
-            <textfield title="ALTURA" option="label" v-model="actrizStore.oneactriz.ALTURA_ACTRIZ" />
-            <textfield title="INSTAGRAM" option="label" v-model="actrizStore.oneactriz.INSTAGRAM_ACTRIZ" />
-            <textfield title="TWITTER" option="label" v-model="actrizStore.oneactriz.TWITTER_ACTRIZ" />
-            <selectfield v-model="actrizStore.oneactriz.ID_CABELLO" :options="cabelloStore.cabellos" title="CABELLO"
-                displayField="NOMBRE_CABELLO" valueField="ID_CABELLO" />
-            <selectfield v-model="actrizStore.oneactriz.ID_ETNIA" :options="etniaStore.etnias" title="ETNIA"
-                displayField="NOMBRE_ETNIA" valueField="ID_ETNIA" />
-            <selectfield v-model="actrizStore.oneactriz.ID_NACIONALIDAD" :options="nacionalidadStore.nacionalidades"
-                title="NACIONALIDAD" displayField="NOMBRE_NACIONALIDAD" valueField="ID_NACIONALIDAD" />
-            <selectfield v-model="actrizStore.oneactriz.ID_LUGARNAC" :options="lugarnacStore.lugarnacimiento"
-                title="LUGAR NACIMIENTO" displayField="NOMBRE_LUGARNAC" valueField="ID_LUGARNAC" />
-            <selectfield v-model="actrizStore.oneactriz.ID_BUSTO" :options="bustoStore.bustos"
-                title="BUSTO" displayField="BUSTO" valueField="ID_BUSTO" />
-            <selectfield v-model="actrizStore.oneactriz.ID_GLUTEO" :options="gluteoStore.gluteos"
-                title="GLUTEO" displayField="GLUTEO" valueField="ID_GLUTEO" />
-            <div>{{actrizStore.oneactriz.LUGARNAC_ACTRIZ}}</div>
-            <textfield title="GLUTEOS" option="label" v-model="actrizStore.oneactriz.IMGGLUTEO_ACTRIZ" class="col-span-2" />
-            <textfield title="BUSTO" option="label" v-model="actrizStore.oneactriz.IMGBUSTO_ACTRIZ" class="col-span-2" />
-            <textfield title="IMAGEN" option="label" v-model="actrizStore.oneactriz.FOTO_ACTRIZ" class="col-span-2" />
-        </div>
+            <text-field title="INSTAGRAM" option="label" v-model="store.oneactriz.instagram" />
+            <text-field title="TWITTER" option="label" v-model="store.oneactriz.twitter" />
+            <text-field title="ALTURA" option="label" v-model="store.oneactriz.altura" />
+            <text-field v-model="store.oneactriz.astrologia_id" :datos="astrologia.astrologias" option="select" title="ASTROLOGIA" name="nombre" values="id_astrologia"/>
+            <text-field v-model="store.oneactriz.cabello_id" :datos="cabello.cabellos" option="select" title="CABELLO"  name="nombre" values="id_cabello" />
+            <text-field v-model="store.oneactriz.etnia_id" :datos="etnia.etnias" option="select" title="ETNIA"  name="nombre" values="id_etnia"/>
+            <text-field v-model="store.oneactriz.nacionalidad_id" :datos="nacionalidad.nacionalidades" option="select" title="nacionalidad"  name="nombre" values="id_nacionalidad"/>
+            <text-field v-model="store.oneactriz.lugarnac_id" :datos="lugarnac.lugarnac" option="select" title="Lugar de nacimiento"  name="nombre" values="id_lugarnac"/>
+            <text-field v-model="store.oneactriz.gluteo_id" :datos="datos" option="select" title="gluteos"  name="name" values="id"/>
+            <text-field v-model="store.oneactriz.busto_id" :datos="datos" option="select" title="busto"  name="name" values="id"/>
+            <text-field title="BUSTO" option="label" v-model="store.oneactriz.busto" />
+            <text-field title="gluteo" option="label" v-model="store.oneactriz.gluteo"/>
+            <text-field title="foto" option="label" v-model="store.oneactriz.foto"/>
+            <img :src="store.oneactriz.busto" :alt="store.oneactriz.nombre" srcset="">
+            <img :src="store.oneactriz.gluteo" :alt="store.oneactriz.nombre" srcset="">
+            <div>{{store.oneactriz.LUGARNAC_ACTRIZ}}</div>
+            <div class="col-span-3">
+                <validate-errors :errors="store.errors" v-if="store.errors != 0" />
+            </div>
+        </div> 
+
         <template #footer>
-            <button @click="actrizStore.UpdatedActriz()" class="bg-green-400 p-3 text-white rounded-xl mr-auto">Guardar</button>
-            <button @click="actrizStore.isEdit = false" class="bg-red-400 p-3 text-white rounded-xl">Cerrar</button>
+            <button @click="store.UpdatedActriz()" :loading="store.loading_update" class="bg-green-400 p-3 text-white rounded-xl mr-auto font-bold">Guardar</button>
+            <button @click="store.opcion_editar = false" class="bg-red-400 p-3 text-white rounded-xl font-bold">Cerrar</button>
         </template>
     </modal>
 </template>
@@ -61,14 +56,14 @@ import { useCabelloStore } from '../../stores/cabello';
 import { useEtniaStore } from '../../stores/etnia';
 import { useNacionalidadStore } from '../../stores/nacionalidad';
 import { useLugarnacStore } from '../../stores/lugarnac';
-import { useBustoStore } from '../../stores/busto';
-import { useGluteoStore } from '../../stores/gluteo';
-const actrizStore = useActrizStore();
-  const astrologiaStore = useAstrologiaStore();
-  const cabelloStore = useCabelloStore();
-  const etniaStore = useEtniaStore();
-  const nacionalidadStore = useNacionalidadStore();
-  const lugarnacStore = useLugarnacStore();
-  const bustoStore = useBustoStore();
-  const gluteoStore = useGluteoStore();
+  const store = useActrizStore();
+  const astrologia = useAstrologiaStore();
+  const cabello = useCabelloStore();
+  const etnia = useEtniaStore();
+  const nacionalidad = useNacionalidadStore();
+  const lugarnac = useLugarnacStore();
+  const datos = [
+  {id:1,name:'SI'},
+  {id:2, name:'NO'}
+  ];
 </script>

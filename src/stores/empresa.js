@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
-import { ref, axios, useGlobalStore, peticion } from '../functions/basic';
+import { ref } from 'vue';
+import axios from 'axios'
+import { useGlobalStore } from './global'
 export const useEmpresaStore = defineStore('empresa', () => {
     const id = ref(null);
     const isEdit= ref(false);

@@ -28,6 +28,7 @@ import Input from './components/Input.vue'
 import Card from './components/Card.vue'
 import ValidateErrors from './components/ValidateErrors.vue'
 import Logo from './components/Logo.vue'
+import Rating from './components/rating.vue'
 import simpleTabs from './components/SimpleTabs.vue'
 import GalleryItem from './components/GalleryItem.vue';
 import GalleryModal from './components/GalleryModal.vue';
@@ -55,6 +56,7 @@ app.component('icon', FontAwesomeIcon)
 .component('validate-errors', ValidateErrors)
 .component('datepicker', VueDatePicker)
 .component('logo', Logo)
+.component('rating', Rating)
 .component('simpleTabs', simpleTabs)
 .component('v-select', vSelect)
 .component('GalleryItem', GalleryItem)
