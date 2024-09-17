@@ -7,11 +7,11 @@ import { onMounted } from 'vue'
 import LoadingBar from './components/LoadingBar.vue'
 import BackTop from './components/BackTop.vue'
 
-const authStore = useAuthStore()
+// const authStore = useAuthStore()
   
-  onMounted(()=>{
-    authStore.login()
-  })
+//   onMounted(()=>{
+//     authStore.login()
+//   })
 
 </script>
 

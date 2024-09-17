@@ -21,7 +21,7 @@
                 {{ item.status.nombre}}
             </small>
         </div>
-        <icon v-if="(index + 1) != items.length" icon="fa-solid fa-arrow-right-long" class="px-1" />
+        <Icon v-if="(index + 1) != items.length" icon="fa-solid fa-arrow-right-long" class="px-1" />
     </span>
 </template>
 

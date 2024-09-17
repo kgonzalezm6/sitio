@@ -18,11 +18,11 @@
                 </li>
                 <div class="row-span-2 relative bg-[#002733] h-96 md:w-28 sm:w-24 ml-auto md:mr-4 sm:mr-1 mt-11 text-slate-400 text-3xl grid justify-center">
                     <a href="https://www.instagram.com/kevinricardog23" target="_blank" rel="noopener noreferrer">
-                        <icon icon="fa-brands fa-instagram" class="pt-10" />
+                        <Icon icon="fa-brands fa-instagram" class="pt-10" />
                     </a>
             
-                    <icon icon="fa-brands fa-github" />
-                    <icon icon="fa-brands fa-linkedin" />
+                    <Icon icon="fa-brands fa-github" />
+                    <Icon icon="fa-brands fa-linkedin" />
                     <div class="flex items-center justify-center relative mt-14">
                        
                         <span class="absolute bg-orange-500 h-6 transform rotate-90 

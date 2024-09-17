@@ -4,371 +4,68 @@ import { ref } from 'vue';
 export const useestadisticasStore = defineStore('estadisticas', () => {
   const loading = ref(false);
   const errors = ref([]);
-  const chicas_series = ref([]);
-  const chicas_options = ref({
-    chart: {
-      height: 350,
-      type: 'bar',
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 10,
-        dataLabels: {
-          position: 'top', // top, center, bottom
-        },
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-      offsetY: -20,
-      style: {
-        fontSize: '12px',
-        colors: ["#304758"]
-      }
-    }, 
-    xaxis: {
-      categories: ["Cantidad de peliculas"],
-      position: 'top',
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      crosshairs: {
-        fill: {
-          type: 'gradient',
-          gradient: {
-            colorFrom: '#D8E3F0',
-            colorTo: '#BED1E6',
-            stops: [0, 100],
-            opacityFrom: 0.4,
-            opacityTo: 0.5,
-          }
-        }
-      },
-      tooltip: {
-        enabled: true,
-      }
-    },
-    yaxis: {
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-        show: false,
-        formatter: function (val) {
-          return val;
-        }
-      }
-    
-    },
-    title: {
-      text: 'TOP 10 CHICAS',
-      floating: true,
-      offsetY: 0,
-      align: 'center',
-      style: {
-        color: '#444'
-      }
-    }
-  });
-  const empresas_series = ref([]);
-  const empresas_options = ref({
-    chart: {
-      height: 350,
-      type: 'bar',
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 10,
-        dataLabels: {
-          position: 'top', // top, center, bottom
-        },
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-      offsetY: -20,
-      style: {
-        fontSize: '12px',
-        colors: ["#304758"]
-      }
-    }, 
-    xaxis: {
-      categories: ["Cantidad de peliculas"],
-      position: 'top',
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      crosshairs: {
-        fill: {
-          type: 'gradient',
-          gradient: {
-            colorFrom: '#D8E3F0',
-            colorTo: '#BED1E6',
-            stops: [0, 100],
-            opacityFrom: 0.4,
-            opacityTo: 0.5,
-          }
-        }
-      },
-      tooltip: {
-        enabled: true,
-      }
-    },
-    yaxis: {
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-        show: false,
-        formatter: function (val) {
-          return val;
-        }
-      }
-    
-    },
-    title: {
-      text: 'TOP 10 EMPRESAS',
-      floating: true,
-      offsetY: 0,
-      align: 'center',
-      style: {
-        color: '#444'
-      }
-    }
-  });
-  const series_series = ref([]);
-  const series_options = ref({
-    chart: {
-      height: 350,
-      type: 'bar',
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 10,
-        dataLabels: {
-          position: 'top', // top, center, bottom
-        },
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-      offsetY: -20,
-      style: {
-        fontSize: '12px',
-        colors: ["#304758"]
-      }
-    }, 
-    xaxis: {
-      categories: ["Cantidad de actrices"],
-      position: 'top',
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      crosshairs: {
-        fill: {
-          type: 'gradient',
-          gradient: {
-            colorFrom: '#D8E3F0',
-            colorTo: '#BED1E6',
-            stops: [0, 100],
-            opacityFrom: 0.4,
-            opacityTo: 0.5,
-          }
-        }
-      },
-      tooltip: {
-        enabled: true,
-      }
-    },
-    yaxis: {
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-        show: false,
-        formatter: function (val) {
-          return val;
-        }
-      }
-    
-    },
-    title: {
-      text: 'TOP 10 SERIES',
-      floating: true,
-      offsetY: 0,
-      align: 'center',
-      style: {
-        color: '#444'
-      }
-    }
-  });
-  const actrices_series = ref([]);
   const actrices_options = ref({
     chart: {
-      height: 350,
       type: 'bar',
     },
     plotOptions: {
       bar: {
-        borderRadius: 10,
-        dataLabels: {
-          position: 'top', // top, center, bottom
-        },
+        horizontal: false,
+      },
+    },
+    xaxis: {
+      categories: [],
+      labels: {
+        formatter: function(val, timestamp, opts) {
+          return `<img src="${val.foto}" alt="${val.name}" style="width:50px; height:50px;"/><br>${val.name}`;
+        }
       }
     },
     dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-      offsetY: -20,
-      style: {
-        fontSize: '12px',
-        colors: ["#304758"]
-      }
-    }, 
-    xaxis: {
-      categories: ["Cantidad de series"],
-      position: 'top',
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      crosshairs: {
-        fill: {
-          type: 'gradient',
-          gradient: {
-            colorFrom: '#D8E3F0',
-            colorTo: '#BED1E6',
-            stops: [0, 100],
-            opacityFrom: 0.4,
-            opacityTo: 0.5,
-          }
-        }
-      },
-      tooltip: {
-        enabled: true,
-      }
+      enabled: false,
     },
-    yaxis: {
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-        show: false,
-        formatter: function (val) {
-          return val;
-        }
-      }
-    
+    fill: {
+      colors: ['#434343'],
     },
-    title: {
-      text: 'TOP 10 ACTRICES',
-      floating: true,
-      offsetY: 0,
-      align: 'center',
-      style: {
-        color: '#444'
-      }
-    }
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      custom: ({ series, seriesIndex, dataPointIndex }) => {
+        const data = chartOptions.value.xaxis.categories[dataPointIndex];
+        return `
+          <div style="padding: 10px; text-align: center;">
+            <img src="${data.foto}" alt="${data.name}" style="width: 50px; height: 50px;" />
+            <p>${data.name}</p>
+            <p>Value: ${series[seriesIndex][dataPointIndex]}</p>
+          </div>
+        `;
+      },
+    },
+    chart: {
+      events: {
+        dataPointMouseEnter: function (event, chartContext, config) {
+          chartContext.el.querySelectorAll('.apexcharts-bar-area').forEach(el => {
+            el.style.cursor = 'pointer';
+          });
+        },
+      },
+    },
   });
-  function chicas() {
-    chicas_series.value = [];
-    axios.get('estadisticas/chicas')
-    .then(response => {
-        if(!response.data.error){
-            const test = response.data.map(i =>{
-                chicas_series.value.push({name:i.NOMBRE_CHICA, data:[i.num_peliculas]});
-            })
-        }else{
-            errors.value = { error: [response.data.error] }
-        }
-    })
-    .catch(err => {
-        errors.value = err.response?.data?.errors
-    })
-    .finally(()=>{
-        loading.value = false
-    })
-  }
-  function empresas() {
-    empresas_series.value = [];
-    axios.get('estadisticas/empresas')
-    .then(response => {
-        if(!response.data.error){
-            const test = response.data.map(i =>{
-                empresas_series.value.push({name:i.nombre, data:[i.num_peliculas]});
-            })
-        }else{
-            errors.value = { error: [response.data.error] }
-        }
-    })
-    .catch(err => {
-        errors.value = err.response?.data?.errors
-    })
-    .finally(()=>{
-        loading.value = false
-    })
-  }
-  function series() {
-    series_series.value = [];
-    axios.get('estadisticas/series')
-    .then(response => {
-        if(!response.data.error){
-            const test = response.data.map(i =>{
-                series_series.value.push({name:i.nombre, data:[i.num]});
-            })
-        }else{
-            errors.value = { error: [response.data.error] }
-        }
-    })
-    .catch(err => {
-        errors.value = err.response?.data?.errors
-    })
-    .finally(()=>{
-        loading.value = false
-    })
-  }
-  function actrices() {
+  const actrices_series = ref([
+    {
+      name: 'Actrices',
+      data: [], // Valores correspondientes al total
+    }
+  ]);
+  function top_actrices() {
     actrices_series.value = [];
-    axios.get('estadisticas/actrices')
+    axios.get('persona/actrices')
     .then(response => {
         if(!response.data.error){
-            const test = response.data.map(i =>{
-                actrices_series.value.push({name:i.nombre, data:[i.num]});
-            })
+            actrices_series.value.data = response.data.series;
+            actrices_options.value.xaxis.categories = response.data.categories;
+            console.log(actrices_series.value);
         }else{
             errors.value = { error: [response.data.error] }
         }
@@ -377,25 +74,16 @@ export const useestadisticasStore = defineStore('estadisticas', () => {
         errors.value = err.response?.data?.errors
     })
     .finally(()=>{
-        loading.value = false
+        loading.value = true;
     })
   }
   return {
     errors,
     loading,
-    chicas_series,
-    chicas_options,
-    empresas_series,
-    empresas_options,
-    series_series,
-    series_options,
     actrices_series,
     actrices_options,
 
-    chicas,
-    empresas,
-    series,
-    actrices
+    top_actrices
   }
 });
 

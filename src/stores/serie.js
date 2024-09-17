@@ -4,8 +4,8 @@ import { ref } from 'vue';
 import { useGlobalStore } from './global'
 export const useSerieStore = defineStore('serie', () => {
   let series = ref([]);
-  let error = ref([]);
   let loading_series = ref(false);
+  let error = ref([]);
   let option_editar = ref(false);
   let option_crear = ref(false);
   let option_eliminar = ref(false);
@@ -16,14 +16,12 @@ export const useSerieStore = defineStore('serie', () => {
   let loading_temporada = ref(false);
   let one_serie = ref([]);
   let temporadas = ref([]);
-  let serie = ref({
-    nombre:'',
-    fecha:'',
-    sitio:'',
-    imagen:'',
-    estado:'',
-    visualizacion:''
-  });
+  let nombre = ref('');
+  let fecha = ref('');
+  let sitio = ref('');
+  let imagen = ref('');
+  let estado = ref('');
+  let visualizacion = ref('');
   let id = ref(0);
   const headers= [{
     title: 'ID',
@@ -111,16 +109,50 @@ const headers_temporada= [{
   key: 'actions'
 }
 ];
-  const estado =[
+  const estados =[
     {id: 'F', nombre: 'FINALIZADO',color:'bg-red-500'},
     {id: 'E', nombre: 'EMISION',color:'bg-green-500'},
     {id: 'P', nombre: 'PENDIENTE',color:'bg-sky-500'},
   ];
-  const visualizacion =[
+  const visualizaciones =[
     {id: '1', nombre: 'VIENDO'},
     {id: '2', nombre: 'PENDIENTE'},
     {id: '3', nombre: 'FINALIZADO'},
   ];
+
+  const files =ref([
+    { id: 1, file: null, name: '' },
+    { id: 2, file: null, name: '' },
+    { id: 3, file: null, name: '' },
+  ]);
+  function setFile(index, file) {
+    files.value[index].file = file;
+  };
+  function setName(index, name) {
+    files.value[index].name = name;
+  };
+  async function uploadFiles() {
+    const formData = new FormData();
+    files.value.forEach((item, index) => {
+      if (item.file) {
+        formData.append(`file${index + 1}`, item.file);
+        formData.append(`name${index + 1}`, item.name);
+      }
+    });
+
+    try {
+      const response = await axios.post('http://localhost/ap/public/api/persona/upload-files', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('Archivos subidos con éxito');
+      return response.data;
+    } catch (error) {
+      console.error('Error al subir archivos:', error);
+      throw error;
+    }
+  };
   async function getSerie() {
     loading_series.value = true;
     const global = useGlobalStore();
@@ -232,8 +264,16 @@ const headers_temporada= [{
   async function crearSerie(){
     const global = useGlobalStore();
     loading_crear.value = true;
+    const form ={
+      nombre : nombre.value,
+      fecha : fecha.value,
+      sitio : sitio.value,
+      estado : estado.value,
+      imagen : imagen.value,
+      visualizacion : visualizacion.value,
+    };
     const response = await axios.post(
-      import.meta.env.VITE_MY_BASE + 'series/serie',serie.value)
+      import.meta.env.VITE_MY_BASE + 'series/serie',form)
     .then(response => {
       if (!response.data.error) {
           if(response.data.codigo == 1){
@@ -275,7 +315,6 @@ const headers_temporada= [{
   }
   return {
     series,
-    serie,
     error,
     loading_series,
     loading_serie,
@@ -285,15 +324,21 @@ const headers_temporada= [{
     option_crear,
     option_eliminar,
     one_serie,
-    visualizacion,
-    estado,
+    visualizaciones,
+    estados,
     loading_editar,
     loading_crear,
     loading_eliminar,
     id,
     temporadas,
     loading_temporada,
-
+    nombre,
+    fecha,
+    sitio,
+    estado,
+    imagen,
+    visualizacion,
+    files,
 
     getSerie,
     crearSerie,
@@ -302,5 +347,11 @@ const headers_temporada= [{
     deleteSerie,
     getTemporadaEpisodio,
     open,
+    setFile,
+    setName,
+    uploadFiles,
   }
 });
+
+
+

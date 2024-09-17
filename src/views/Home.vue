@@ -52,7 +52,7 @@ import { rand } from '@vueuse/core'
 </script>
 
 <template>
-    <TitlePage/>
+    <!-- <TitlePage/> -->
     <div class="py-6">
         <header class="md:flex items-center justify-center lg:gap-20">
             <div class="flex justify-center">

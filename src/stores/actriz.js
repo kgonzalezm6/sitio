@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { useGlobalStore } from './global';
 import { useAstrologiaStore } from './astrologia';
 import { useCabelloStore } from './cabello';
@@ -64,13 +64,13 @@ export const useActrizStore = defineStore('actriz', () => {
     title: 'ID',
     align: 'start',
     sort: true,
-    key: 'serie.id_serie'
+    key: 'id_serie'
   },
   {
     title: 'NOMBRE SERIE',
     align: 'end',
     sort: true,
-    key: 'serie.nombre'
+    key: 'nombre'
   },
   {
     title: 'IMAGEN',
@@ -91,7 +91,8 @@ export const useActrizStore = defineStore('actriz', () => {
   ];
   let oneactriz = ref([]);
   let series = ref([]);
-  let actriz = ref(
+  let tabla = ref([]);
+  let actriz = reactive(
     {
       'nombre' : '',
       'fechanac' : '',
@@ -104,13 +105,13 @@ export const useActrizStore = defineStore('actriz', () => {
       'nacionalidad_id' : '',
       'astrologia_id' : '',
       'lugarnac_id' : '',
-      'gluteo_id' : '',
-      'busto_id' : '',
+      'gluteo_id' : 1,
+      'busto_id' : 1,
       'gluteo' : '',
       'busto' : ''
     }
   );
-  let union = ref(
+  let union = reactive(
     {
       'actriz_id' : '',
       'serie_id' : ''
@@ -156,6 +157,7 @@ export const useActrizStore = defineStore('actriz', () => {
           setTimeout(() => {
             opcion_editar.value = false;
             this.getActriz();
+            this.getActrizSerie();
             errors.value = [];
           }, 1000);
         } else {
@@ -174,16 +176,15 @@ export const useActrizStore = defineStore('actriz', () => {
   async function CreateActriz() {
     loading_create.value = true;
     const global = useGlobalStore();
-    console.log(oneactriz.value);
-    actriz.value.twitter == '' ?? 'https://www.twitter.com';
-    actriz.value.instagram == '' ?? 'https://www.instagram.com';
-
+    console.log(actriz);
+    // actriz.value.twitter != '' ? actriz.value.twitter : 'https://www.twitter.com';
+    // actriz.value.instagram != '' ? actriz.value.instagram : 'https://www.instagram.com';
+    // actriz.value.gluteo == '' ? actriz.value.gluteo_id = 2 : actriz.value.gluteo_id = 1; 
+    // actriz.value.busto == '' ? actriz.value.busto_id = 2 : actriz.value.busto_id = 1; 
     const response = await axios.post(
-        import.meta.env.VITE_MY_BASE + 'persona/actriz', actriz.value)
+        import.meta.env.VITE_MY_BASE + 'persona/actriz', actriz)
       .then(response => {
-
         if (!response.data.error) {
-
           global.setAlert(response.data.mensaje, response.data.color);
           setTimeout(() => {
             opcion_nuevo.value = false;
@@ -206,15 +207,16 @@ export const useActrizStore = defineStore('actriz', () => {
   async function UnionActrizSerie() {
     loading_join.value = true;
     const global = useGlobalStore();
-    console.log(union.value);
+    console.log(union);
     const response = await axios.post(
-        import.meta.env.VITE_MY_BASE + 'persona/actriz_serie', union.value)
+        import.meta.env.VITE_MY_BASE + 'persona/actriz_serie', union)
       .then(response => {
         if (!response.data.error) {
           global.setAlert(response.data.mensaje, response.data.color);
           setTimeout(() => {
             opcion_union.value = false;
             this.getActriz();
+            this.getActrizSerie();
             errors.value = [];
             union.value = [];
           }, 1000);
@@ -233,12 +235,15 @@ export const useActrizStore = defineStore('actriz', () => {
   };
   async function getActrizSerie(){
     const global = useGlobalStore();
-        loading_series.value = true;
+        loading_series.value = false;
         const response = await axios.get(
             import.meta.env.VITE_MY_BASE + 'persona/actriz_serie/'+id.value)
           .then(response => {
             if (!response.data.error) {
               series.value = response.data.datos;
+              tabla.value = response.data.datos.map((i)=> {return i.series}).flat();
+              console.log(tabla.value);
+              loading_series.value = true;
             } else {
               global.setAlert(response.data.mensaje,response.data.color);
             }
@@ -248,7 +253,7 @@ export const useActrizStore = defineStore('actriz', () => {
             console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
           })
           .finally(()=>{
-            loading_series.value = false;
+            // loading_series.value = false;
         })
   }
   function open(item,type){
@@ -294,6 +299,7 @@ export const useActrizStore = defineStore('actriz', () => {
     loading_series,
     headers_series,
     tab,
+    tabla,
 
     getActriz,
     open,

@@ -1,7 +1,7 @@
 <template>
     <div class="h-screen background bg-no-repeat bg-cover bg-center ">
         <div class="px-4 fixed top-14 cursor-pointer  left-0 bg-lime-muni rounded-r-lg w-36 py-4 border-r-2 border-y-2 border-blue-muni">
-            <icon icon="fas fa-house-user" class="text-blue-muni text-3xl font-extrabold" />
+            <Icon icon="fas fa-house-user" class="text-blue-muni text-3xl font-extrabold" />
             <span class="text-blue-muni text-xl font-extrabold">
                 Inicio
             </span>

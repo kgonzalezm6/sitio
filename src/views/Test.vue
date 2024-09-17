@@ -150,16 +150,16 @@
             <span class="text-sm font-normal">{{ bossList.includes(item.nit) ? 'Jefe' : 'Sub-alterno' }}</span>
          </template>
          <template #status="{item}">
-            <icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />
-            <icon v-else icon="fa-solid fa-user-xmark" class="text-red-500 text-xl" />
+            <Icon v-if="item.status==='A'" icon="fa-solid fa-user-check" class="text-green-500 text-xl" />
+            <Icon v-else icon="fa-solid fa-user-xmark" class="text-red-500 text-xl" />
          </template>
          <template #actions="{item}">
             <div class="flex space-x-2">
                <tooltip message="Alguna acción">
-                  <icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
+                  <Icon @click="user(item)" icon="fa-solid fa-user-check" class="text-green-500 text-2xl hover:scale-150 cursor-pointer" />
                </tooltip>
                <tooltip message="Otra acción">
-                  <icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
+                  <Icon @click="openAlert = true" icon="fa-solid fa-user-xmark" class="text-red-500 text-2xl hover:scale-150 cursor-pointer" />
                </tooltip>
             </div>
          </template>
@@ -224,12 +224,12 @@
       <br>
       <div>
          <h1 class="text-3xl font-bold">Iconos</h1>
-         <icon icon="fas fa-home" class="text-blue-muni text-xs" />
-         <icon icon="fas fa-home" class="text-lime-muni text-sm" />
-         <icon icon="fas fa-home" class="text-blue-500 text-base" />
-         <icon icon="fas fa-home" class="text-red-500 text-lg" />
-         <icon icon="fas fa-home" class="text-gray-500 text-xl" />
-         <icon icon="fas fa-home" class="text-violet-500 text-2xl" />
+         <Icon icon="fas fa-home" class="text-blue-muni text-xs" />
+         <Icon icon="fas fa-home" class="text-lime-muni text-sm" />
+         <Icon icon="fas fa-home" class="text-blue-500 text-base" />
+         <Icon icon="fas fa-home" class="text-red-500 text-lg" />
+         <Icon icon="fas fa-home" class="text-gray-500 text-xl" />
+         <Icon icon="fas fa-home" class="text-violet-500 text-2xl" />
       </div>   
       <br>
       <br>
@@ -327,7 +327,7 @@
 
    <modal :open="openAlert" title=" A T E N C I O N ">
       <div class="flex justify-center items-center space-x-4">
-         <icon icon="fa-solid fa-triangle-exclamation" class="text-7xl text-orange-500"  />
+         <Icon icon="fa-solid fa-triangle-exclamation" class="text-7xl text-orange-500"  />
          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, provident quam? Quasi deleniti maxime accusamus nam facilis, minus corrupti quam necessitatibus. Voluptatibus aliquam temporibus unde doloribus hic culpa quos fugit.</p>
       </div>
       <template #footer>

@@ -2,7 +2,7 @@
     <div>
         <div class="flex w-40 bg-[#1355BF] h-16 rounded-br-full justify-center">
             <span class="font-monserrat font-extrabold text-[#EDBF18] text-xl">
-                <icon icon="fa-solid fa-film" class="mt-4 text-slate-200 text-2xl" />
+                <Icon icon="fa-solid fa-film" class="mt-4 text-slate-200 text-2xl" />
                 DETALLE
             </span>
             <!-- #BF8713 -->
@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="ml-24 mt-2">
-            <icon icon="fa-pen-to-square" class="text-blue-800 text-3xl" />
-            <icon icon="fa-trash" class="text-red-500 text-3xl ml-4" />
+            <Icon icon="fa-pen-to-square" class="text-blue-800 text-3xl" />
+            <Icon icon="fa-trash" class="text-red-500 text-3xl ml-4" />
         </div>
         <div class="w-full h-8 mt-8" v-if="serieStore.datosListos">
             <Tabs :tabs="serieStore.tabs" />

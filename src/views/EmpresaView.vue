@@ -27,9 +27,9 @@
                             'Inactivo' }}</div>
                 </template>
                 <template #actions="{ item }">
-                    <icon icon="pen-to-square" @click="empresaStore.open(item, 2)"
+                    <Icon icon="pen-to-square" @click="empresaStore.open(item, 2)"
                         class="text-3xl text-cyan-500 hover:scale-125 mr-2 " />
-                    <icon icon="trash" @click="empresaStore.open(item, 3)" 
+                    <Icon icon="trash" @click="empresaStore.open(item, 3)" 
                     class="text-3xl text-red-500 hover:scale-125" />
                 </template>
             </datatable>

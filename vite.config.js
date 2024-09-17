@@ -11,5 +11,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  server: {
+    host: true // Esto permite acceder desde otras máquinas
+  }
   // base : '/GestionServicios/apps/{nombre de tu app separado por guiones medios}'
 })

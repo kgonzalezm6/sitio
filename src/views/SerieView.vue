@@ -3,7 +3,7 @@
   <div>
     <div class="flex w-36 bg-[#1355BF] h-16 rounded-br-full justify-center">
       <span class="font-monserrat font-extrabold text-[#EDBF18] text-xl">
-        <icon icon="fa-solid fa-film" class="mt-4 text-slate-200 text-2xl" />
+        <Icon icon="fa-solid fa-film" class="mt-4 text-slate-200 text-2xl" />
         SERIES
       </span>
       <!-- #BF8713 -->
@@ -41,7 +41,7 @@
           </div>
           <div class="ml-10 mt-10 flex">
             <button type="button" class="bg-blue-800 text-white px-8 md:h-8 rounded-lg flex items-center">
-              <icon icon="fa-solid fa-filter" class="text-white" />
+              <Icon icon="fa-solid fa-filter" class="text-white" />
               <span class="hidden sm:block ml-2">Filtrar</span>
             </button>
           </div>
@@ -49,14 +49,14 @@
           <div class="ml-auto mt-10">
             <button type="button" class=" text-white px-8 md:h-8 sm:h-4
                   rounded-lg" @click="serieStore.isOpen = true">
-              <icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
+              <Icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
             </button>
           </div>
         </div>
         <div class="my-10 mx-16">
           <div class="bg-white flex items-center">
             <input type="search" v-model="busqueda" class="text-blue-700 h-8 flex-grow">
-            <icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
+            <Icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
           </div>
         </div>
         <div class="grid gap-5 xl:grid-cols-7 lg:grid-cols-6  md:grid-cols-4 sm:grid-cols-2 ml-8 mt-16">
@@ -99,7 +99,7 @@
           </div>
           <div class="ml-10 mt-10 flex">
             <button type="button" class="bg-blue-800 text-white px-8 md:h-8 rounded-lg flex items-center">
-              <icon icon="fa-solid fa-filter" class="text-white" />
+              <Icon icon="fa-solid fa-filter" class="text-white" />
               <span class="hidden sm:block ml-2">Filtrar</span>
             </button>
           </div>
@@ -107,14 +107,14 @@
           <div class="ml-auto mt-10">
             <button type="button" class=" text-white px-8 md:h-8 sm:h-4
                   rounded-lg" @click="serieStore.isOpen = true">
-              <icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
+              <Icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
             </button>
           </div>
         </div>
         <div class="my-10 mx-16">
           <div class="bg-white flex items-center">
             <input type="search" v-model="busqueda" class="text-blue-700 h-8 flex-grow">
-            <icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
+            <Icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
           </div>
         </div>
         <div class="grid gap-5 xl:grid-cols-7 lg:grid-cols-6  md:grid-cols-4 sm:grid-cols-2 ml-8 mt-16">
@@ -157,7 +157,7 @@
           </div>
           <div class="ml-10 mt-10 flex">
             <button type="button" class="bg-blue-800 text-white px-8 md:h-8 rounded-lg flex items-center">
-              <icon icon="fa-solid fa-filter" class="text-white" />
+              <Icon icon="fa-solid fa-filter" class="text-white" />
               <span class="hidden sm:block ml-2">Filtrar</span>
             </button>
           </div>
@@ -165,14 +165,14 @@
           <div class="ml-auto mt-10">
             <button type="button" class=" text-white px-8 md:h-8 sm:h-4
                   rounded-lg" @click="serieStore.isOpen = true">
-              <icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
+              <Icon icon="fa-gear" class=" text-[#EDBF18] text-3xl" />
             </button>
           </div>
         </div>
         <div class="my-10 mx-16">
           <div class="bg-white flex items-center">
             <input type="search" v-model="busqueda" class="text-blue-700 h-8 flex-grow">
-            <icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
+            <Icon icon="fa-solid fa-magnifying-glass" class="text-blue-800 transform rotate-90 pr-2 mt-2" />
           </div>
         </div>
         <div class="grid gap-5 xl:grid-cols-7 lg:grid-cols-6  md:grid-cols-4 sm:grid-cols-2 ml-8 mt-16">
@@ -190,7 +190,7 @@
 
     <modal :open="serieStore.isOpen">
       <template #header>
-        <icon icon="fa-plus" class="text-[#ff9100]" /> Crear serie
+        <Icon icon="fa-plus" class="text-[#ff9100]" /> Crear serie
       </template>
       <div class="flex flex-col w-96">
         <label for="" class="text-blue-800 ">Nombre: </label>

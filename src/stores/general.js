@@ -14,7 +14,7 @@ import {
 } from './cabello';
 import {
   useEtniaStore
-} from './etnia2';
+} from './etnia';
 import {
   useNacionalidadStore
 } from './nacionalidad';

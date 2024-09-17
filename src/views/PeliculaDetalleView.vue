@@ -55,8 +55,8 @@ onBeforeRouteLeave((to, from, next) => {
       </div>
     </div>
     <div class="ml-24 mt-2">
-      <icon icon="fa-pen-to-square" class="text-blue-800 text-3xl" @click="peliculaStore.open(peliculaStore.onepelicula, 2)" />
-      <icon icon="fa-trash" class="text-red-500 text-3xl ml-4" @click="peliculaStore.open(peliculaStore.onepelicula, 3)" />
+      <Icon icon="fa-pen-to-square" class="text-blue-800 text-3xl" @click="peliculaStore.open(peliculaStore.onepelicula, 2)" />
+      <Icon icon="fa-trash" class="text-red-500 text-3xl ml-4" @click="peliculaStore.open(peliculaStore.onepelicula, 3)" />
     </div>
     <div class="w-full h-8 mt-8">
       <simpleTabs :tabs="peliculaStore.tabs">
@@ -71,9 +71,9 @@ onBeforeRouteLeave((to, from, next) => {
                       'Inactivo' }}</div>
           </template>
             <template #actions="{ item }">
-              <icon icon="pen-to-square" @click="peliculaStore.open(item, 2)"
+              <Icon icon="pen-to-square" @click="peliculaStore.open(item, 2)"
                 class="text-3xl text-cyan-500 hover:scale-125 mr-2 " />
-              <icon icon="trash" @click="peliculaStore.open(item, 3)" class="text-3xl text-red-500 hover:scale-125" />
+              <Icon icon="trash" @click="peliculaStore.open(item, 3)" class="text-3xl text-red-500 hover:scale-125" />
             </template>
           </datatable>
         </template>

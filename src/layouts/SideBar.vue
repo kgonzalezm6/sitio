@@ -26,7 +26,7 @@
                     <li></li>
                     <li v-for="(menu,index) in menus" :key="index"  class="flex items-center gap-3 py-7 cursor-pointer hover:scale-105 transition hover:text-blue-600">
                         <a :href="menu.route">
-                            <icon :icon="menu.icon" class="text-4xl " />
+                            <Icon :icon="menu.icon" class="text-4xl " />
                             <span class=" font-bold text-sm" :hidden="!store.openSidebar" >{{ menu.title }}</span>
                         </a>
                     </li>

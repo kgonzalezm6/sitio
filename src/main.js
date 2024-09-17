@@ -32,20 +32,23 @@ import Rating from './components/rating.vue'
 import simpleTabs from './components/SimpleTabs.vue'
 import GalleryItem from './components/GalleryItem.vue';
 import GalleryModal from './components/GalleryModal.vue';
+import AutoCompleteSelect from './components/AutoCompleteSelect.vue';
+import loading from './components/loading.vue';
+import Breadcrumbs from './components/Breadcrumbs.vue'
 import axios from 'axios'
-
 library.add(fas)
 library.add(fab)
 library.add(far)
 
 axios.defaults.baseURL = import.meta.env.VITE_MY_BASE
 
+
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(VueApexCharts)
 
-app.component('icon', FontAwesomeIcon)
+app.component('Icon', FontAwesomeIcon)
 .component('modal', modal)
 .component('tooltip', tooltip)
 .component('toast', toast)
@@ -57,10 +60,13 @@ app.component('icon', FontAwesomeIcon)
 .component('datepicker', VueDatePicker)
 .component('logo', Logo)
 .component('rating', Rating)
-.component('simpleTabs', simpleTabs)
+.component('simple-tabs', simpleTabs)
 .component('v-select', vSelect)
 .component('GalleryItem', GalleryItem)
 .component('GalleryModal', GalleryModal)
+.component('Autocomplete', AutoCompleteSelect)
+.component('Loading', loading)
+.component('Breadcrumbs', Breadcrumbs)
 app.mount('#app')
 
 

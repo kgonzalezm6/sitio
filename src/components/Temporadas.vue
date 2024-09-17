@@ -2,7 +2,7 @@
     <div>
       <div class="flex mb-4 bg-blue-500 rounded-tl-3xl rounded-tr-3xl">
         <button @click="prevPage" v-if="totalPages > 1" :disabled="currentPage === 0" class="px-3 py-1 mr-2 bg-blue-500 rounded-md cursor-pointer focus:outline-none">
-          <icon icon="fa-solid fa-angles-left" class="text-white"/>
+          <Icon icon="fa-solid fa-angles-left" class="text-white"/>
         </button>
         <button
           v-for="(tab, index) in visibleTabs"
@@ -14,7 +14,7 @@
           {{ tab.nombre }}
         </button>
         <button @click="nextPage" v-if="totalPages > 1" :disabled="currentPage === totalPages - 1" class="px-3 py-1 bg-blue-500 rounded-md cursor-pointer focus:outline-none ml-auto">
-          <icon icon="fa-solid fa-angles-right" class="text-white"/>
+          <Icon icon="fa-solid fa-angles-right" class="text-white"/>
         </button>
       </div>
       <!-- Tab Content -->
@@ -35,9 +35,9 @@
             </div>
         </template>
         <template #actions="{ item }">
-            <icon icon="pen-to-square" @click="store.open(item, 1)"
+            <Icon icon="pen-to-square" @click="store.open(item, 1)"
                 class="text-3xl text-cyan-500 hover:scale-125 mr-2 " />
-            <icon icon="trash" @click="store.open(item, 2)" 
+            <Icon icon="trash" @click="store.open(item, 2)" 
             class="text-3xl text-red-500 hover:scale-125" />
         </template>
         </datatable>

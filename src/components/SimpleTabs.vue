@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="tabs-container bg-blue-500 p-2 rounded-lg text-center rounded-bl-full rounded-tr-full">
+        <div class="tabs-container p-2 text-center">
             <div v-for="(tab, index) in tabs" :key="index" @click="changeTab(index)"
-                :class="{ 'text-white font-bold border-b-2 border-white': activeTab === index, 'text-gray-300': activeTab !== index }"
+                :class="{ 'text-blue-700 font-bold border-b-2 border-sky-500': activeTab === index, 'text-gray-300': activeTab !== index }"
                 class="cursor-pointer py-2 px-4 inline-block">
                 {{ tab }}
             </div>

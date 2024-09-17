@@ -13,20 +13,20 @@
             <h1 class="text-3xl font-bold  lg:tracking-[.25em]">¿ Necesitas ayuda ?</h1>
             <br>
             <div class="flex space-x-4 items-center justify-center lg:justify-start">
-                <icon icon="fa-solid fa-envelope" class=" lg:text-xl " />
+                <Icon icon="fa-solid fa-envelope" class=" lg:text-xl " />
                 <h2 class="lg:text-md ">gestiondeserviciosdcai@muniguate.com</h2>
             </div>
             <div class="flex space-x-4 items-center justify-center lg:justify-start">
-                <icon icon="fa-solid fa-phone" class="text-xl lg:text-xl " />
+                <Icon icon="fa-solid fa-phone" class="text-xl lg:text-xl " />
                 <h2 class=" lg:text-md ">2285-8610</h2>
             </div>
             <hr class="my-2 border-green-600 border-2">
             <div class="flex space-x-4 items-center justify-center lg:justify-start">
-                <icon icon="fa-solid fa-envelope" class=" lg:text-xl " />
+                <Icon icon="fa-solid fa-envelope" class=" lg:text-xl " />
                 <h2 class="lg:text-md ">soportecatastro@muniguate.com</h2>
             </div>
             <div class="flex space-x-4 items-center justify-center lg:justify-start">
-                <icon icon="fa-solid fa-phone" class="text-xl lg:text-xl " />
+                <Icon icon="fa-solid fa-phone" class="text-xl lg:text-xl " />
                 <h2 class=" lg:text-md ">2285-8687</h2>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="h-screen background bg-no-repeat bg-cover bg-center ">
         <div class="px-4 fixed top-14 cursor-pointer  left-0 bg-lime-muni rounded-r-lg w-36 py-4 border-r-2 border-y-2 border-blue-muni">
             <div class="flex items-center gap-x-2">
-                <icon icon="fa-solid fa-right-to-bracket" class="text-blue-muni text-3xl font-extrabold" />
+                <Icon icon="fa-solid fa-right-to-bracket" class="text-blue-muni text-3xl font-extrabold" />
                 <span class="text-blue-muni text-xl font-extrabold">
                     Login
                 </span>

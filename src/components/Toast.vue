@@ -31,11 +31,11 @@
         
         <div class="flex font-bold text-white justify-between items-center py-2 px-3 bg-clip-padding border-b border-gray-300 rounded-t-lg ">
             
-            <icon v-if="store.toast.type === 'primary'" icon="fa-solid fa-circle-check" class="text-xl"/>
-            <icon v-else-if="store.toast.type === 'dark'" icon="fa-solid fa-circle-check" class="text-xl"/>
-            <icon v-else-if="store.toast.type === 'success'" icon="fa-solid fa-circle-check" class="text-xl"/>
-            <icon v-else-if="store.toast.type === 'danger'" icon="fa-solid fa-circle-xmark" class="text-xl"/>
-            <icon v-else="store.toast.type === 'warning'" icon="fa-solid fa-triangle-exclamation" class="text-xl"/>
+            <Icon v-if="store.toast.type === 'primary'" icon="fa-solid fa-circle-check" class="text-xl"/>
+            <Icon v-else-if="store.toast.type === 'dark'" icon="fa-solid fa-circle-check" class="text-xl"/>
+            <Icon v-else-if="store.toast.type === 'success'" icon="fa-solid fa-circle-check" class="text-xl"/>
+            <Icon v-else-if="store.toast.type === 'danger'" icon="fa-solid fa-circle-xmark" class="text-xl"/>
+            <Icon v-else="store.toast.type === 'warning'" icon="fa-solid fa-triangle-exclamation" class="text-xl"/>
 
             <p>{{ store.toast.title }}</p>
 

@@ -1,33 +1,17 @@
 import { defineStore } from 'pinia';
 import axios from 'axios'
 import { ref } from 'vue';
-import { useGlobalStore } from './global'
-import {
-  useAstrologiaStore
-} from './astrologia';
-import {
-  useCabelloStore
-} from './cabello';
-import {
-  useEtniaStore
-} from './etnia';
-import {
-  useNacionalidadStore
-} from './nacionalidad';
-import {
-  useLugarnacStore
-} from './lugarnac';
-import {
-  useBustoStore
-} from './busto';
-import {
-  useGluteoStore
-} from './gluteo';
+import { useStores } from '@/stores';
+import { useRouter } from "vue-router"
 export const useChicaStore = defineStore('chica', () => {
+    const { global, astrologia, cabello, etnia, nacionalidad, lugarnac } = useStores();
+    const router = useRouter();
     let chicas = ref([]);
     let loading_chicas = ref(false);
+    let loading_chica = ref(false);
     let loading_update = ref(false);
     let loading_delete = ref(false);
+    let loading_opcion = ref(false);
     const headers= [{
         title: 'ID',
         align: 'start',
@@ -76,18 +60,17 @@ export const useChicaStore = defineStore('chica', () => {
         key: 'actions'
       }
     ];
-    let  onechica = ref([]);
+    const tabs = ['Registros','Estadisticas'];
+    let chica = ref([]);
     let isEdit= ref(false);
     let isDelete= ref(false);
-
-    async function getChica(){
-        const global = useGlobalStore();
-        loading_chicas.value = true;
-        const response = await axios.get(
-            import.meta.env.VITE_MY_BASE + 'persona/chica')
+    let id = ref(null);
+    async function getChica(){      
+        const response = await axios.get('persona/chica')
           .then(response => {
             if (!response.data.error) {
               chicas.value = response.data;
+              loading_chicas.value = true;
             } else {
               global.setAlert("Ha ocurrido un error al cargar la información");
             }
@@ -97,9 +80,25 @@ export const useChicaStore = defineStore('chica', () => {
             console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
           })
           .finally(()=>{
-            loading_chicas.value = false;
         })
     }
+    async function getOne(){      
+      const response = await axios.get('persona/chica/'+id.value)
+        .then(response => {
+          if (!response.data.error) {
+            chica.value = response.data.datos[0];
+            loading_chica.value = true;
+          } else {
+            global.setAlert("Ha ocurrido un error al cargar la información");
+          }
+        })
+        .catch(err => {
+          console.error(err)
+          console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
+        })
+        .finally(()=>{
+      })
+  }
     async function UpdatedChica() {
       loading_update.value = true;
       const global = useGlobalStore();
@@ -149,47 +148,35 @@ export const useChicaStore = defineStore('chica', () => {
         })
     };
     function open(item, type) {
-      onechica.value = item;
-      const astrologiaStore = useAstrologiaStore();
-      const cabelloStore = useCabelloStore();
-      const etniaStore = useEtniaStore();
-      const nacionalidadStore = useNacionalidadStore();
-      const lugarnacStore = useLugarnacStore();
-      const bustoStore = useBustoStore();
-      const gluteoStore = useGluteoStore();
-      if (type == 1) {
-        //edit
-        isEdit.value = true;
-        astrologiaStore.getAstrologia();
-        cabelloStore.getCabello();
-        etniaStore.getEtnia();
-        nacionalidadStore.getNacionalidad();
-        lugarnacStore.getLugarnac()
-        bustoStore.getBusto();
-        gluteoStore.getGluteos();
-      } else if(type == 3) {
-        //delete
-        isDelete.value = true;
-        astrologiaStore.getAstrologia();
-        cabelloStore.getCabello();
-        etniaStore.getEtnia();
-        nacionalidadStore.getNacionalidad();
-        lugarnacStore.getLugarnac()
-        bustoStore.getBusto();
-        gluteoStore.getGluteos();
+      loading_opcion.value = true;
+      chica.value = item;
+      switch (type) {
+        case 1:
+         
+          break;
+      
+        default:
+          loading_opcion.value = false;
+          break;
       }
+
     };
     return {
         chicas,
         headers,
         loading_chicas,
+        loading_chica,
         isEdit,
         isDelete,
-        onechica,
+        chica,
+        id,
         loading_update,
         loading_delete,
-        
+        loading_opcion,
+        tabs,
+
         getChica,
+        getOne,
         open,
         UpdatedChica,
         DeleteChica,

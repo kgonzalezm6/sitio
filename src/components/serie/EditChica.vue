@@ -1,5 +1,5 @@
 <template>
-    <modal :open="store.isEdit" title="Editar" icon="pen-to-square" class="w-2/3">
+    <modal :open="store.isEdit" title="Editar" icon="pen-to-square" class="w-5/6">
         <div class="grid grid-cols-4 gap-3">
             <text-field title="Nombre" option="label" v-model="store.onechica.nombre" />
             <text-field title="etnia" option="select" 
