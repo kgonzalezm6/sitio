@@ -129,6 +129,31 @@ export const usePeliculaStore = defineStore('pelicula', () => {
       btn_editar.value = false; 
     }   
   }
+  async function join() { 
+    btn_unir.value = true; 
+    console.log(unir);
+    // try {
+    //   const response = await axios.put('persona/pelicula/' + registro.value.id_pelicula, registro.value);     
+    //   if (response.data.error) {
+    //     global.setAlert(response.data.mensaje, response.data.color);
+    //   } else {
+    //     if (response.data.codigo == 1) {
+    //       global.setAlert(response.data.mensaje, response.data.color);
+    //       this.index();
+    //       opcion_editar.value = false;
+    //       this.reset();
+    //     } else {
+    //       global.setAlert(response.data.mensaje, response.data.color);
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.error('Error en la solicitud:', error);
+    //   errors.value = error.response?.data?.errors || 'Error desconocido';
+    //   global.setAlert(error.response?.data?.mensaje || 'Error en la solicitud', 'danger');
+    // } finally {
+    //   btn_unir.value = false; 
+    // }   
+  }
   function opciones(type, item = null) {
     registro.value = item;
     switch (type) {
@@ -142,7 +167,6 @@ export const usePeliculaStore = defineStore('pelicula', () => {
         opcion_eliminar.value = true;
       case 4:
         opcion_unir.value = true;
-        console.log('unir: '+ opcion_unir.value);
         break;
       default:
         break;
@@ -181,5 +205,6 @@ export const usePeliculaStore = defineStore('pelicula', () => {
     index,
     store,
     update,
+    join,
   };
 });

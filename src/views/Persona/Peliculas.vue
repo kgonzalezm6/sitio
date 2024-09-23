@@ -47,7 +47,7 @@
             <Loading />
         </div>
          <NuevoPelicula />
-        <EditarPelicula />
+        <!-- <EditarPelicula /> -->
         <UnirPelicula />
     </div>
 </template>
@@ -62,7 +62,11 @@ import UnirPelicula from '../../components/modals/UnirPelicula.vue';
 const store = usePeliculaStore();
 const globalStore = useGlobalStore();
 const router = useRouter();
-
+const breadcrumbs = [
+  { name: 'Home', path: '/', icon: 'fas fa-home' },
+  { name: 'Persona', path: '/persona'},
+  { name: 'Peliculas', path: '' }
+];
 const imageUrl = (imagen) => `${import.meta.env.VITE_MY_URL_IMAGE}${imagen}`;
 onMounted(() => {
     store.index();

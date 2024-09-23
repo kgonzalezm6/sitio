@@ -19,6 +19,9 @@ const emit = defineEmits(['update:modelValue']);
 const isLoading = ref(false);
 const fileInfo = ref({ name: '', size: '' });
 
+const minYear = 1900;
+const maxYear = new Date().getFullYear();
+
 function updateValue(event) {
     if (props.option === 'file') {
         const file = event.target.files[0];
@@ -57,21 +60,88 @@ function clearFile() {
     <div class="input-container">
         <div v-if="props.option === 'label'" class="relative mt-2 mx-1 md:ml-4 md:mt-0">
             <input
-                v-bind="$attrs"
-                :class="{ 'border-red-500': props.error }"
-                class="border border-gray-300 rounded-md p-2 w-full peer"
-                type="text"
-                :value="props.modelValue"
-                @input="updateValue"
+              v-bind="$attrs"
+              :class="{ 'border-red-500': props.error }"
+              class="border border-gray-300 rounded-md p-2 w-full peer focus:ring-0 focus:outline-none"
+              type="text"
+              :value="props.modelValue"
+              @input="updateValue"
+              placeholder=" "
             />
+            
             <label
-                class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear
-                    peer-placeholder-shown:top-2.5 peer-placeholder-shown:left-3 peer-placeholder-shown:text-gray-600
-                    peer-focus:-top-1.5 peer-focus:left-3 peer-focus:text-gray-400">
-                {{ props.title }}
+              class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear
+                peer-placeholder-shown:top-2.5 peer-placeholder-shown:left-3 peer-placeholder-shown:text-base
+                peer-placeholder-shown:text-gray-400 peer-focus:-top-1.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-gray-400
+                truncate"
+            >
+              {{ props.title }}
             </label>
         </div>
-    
+        
+        <div v-else-if="props.option === 'year'" class="relative mt-2 mx-1 md:ml-4 md:mt-0">
+            <input
+              v-bind="$attrs"
+              :class="{ 'border-red-500': props.error }"
+              class="border border-gray-300 rounded-md p-2 w-full peer focus:ring-0 focus:outline-none"
+              type="number"
+              :value="props.modelValue"
+              :min="minYear"
+              :max="maxYear"
+              step="1"
+              @input="updateValue"
+              placeholder=" "
+            />
+            
+            <label
+              class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear
+                peer-placeholder-shown:top-2.5 peer-placeholder-shown:left-3 peer-placeholder-shown:text-base
+                peer-placeholder-shown:text-gray-400 peer-focus:-top-1.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-gray-400"
+            >
+            {{ props.title }}
+            </label>
+        </div>
+
+        <div v-else-if="props.option === 'numeric'" class="relative mt-2 mx-1 md:ml-4 md:mt-0">
+            <input
+              v-bind="$attrs"
+              :class="{ 'border-red-500': props.error }"
+              class="border border-gray-300 rounded-md p-2 w-full peer focus:ring-0 focus:outline-none"
+              type="number"
+              :value="props.modelValue"
+              @input="updateValue"
+              placeholder=" "
+            />
+            
+            <label
+              class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear
+                peer-placeholder-shown:top-2.5 peer-placeholder-shown:left-3 peer-placeholder-shown:text-base
+                peer-placeholder-shown:text-gray-400 peer-focus:-top-1.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-gray-400"
+            >
+            {{ props.title }}
+            </label>
+        </div>
+
+        <div v-else-if="props.option === 'url'" class="relative mt-2 mx-1 md:ml-4 md:mt-0">
+            <input
+              v-bind="$attrs"
+              :class="{ 'border-red-500': props.error }"
+              class="border border-gray-300 rounded-md p-2 w-full peer focus:ring-0 focus:outline-none"
+              type="url"
+              :value="props.modelValue"
+              @input="updateValue"
+              placeholder=" "
+            />
+            
+            <label
+              class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear
+                peer-placeholder-shown:top-2.5 peer-placeholder-shown:left-3 peer-placeholder-shown:text-base
+                peer-placeholder-shown:text-gray-400 peer-focus:-top-1.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-gray-400"
+            >
+            {{ props.title }}
+            </label>
+        </div>
+
         <div v-else-if="props.option === 'file'" class="relative mt-2 mx-1 md:ml-4 md:mt-0">
             <label for="file-input" class="cursor-pointer items-center border border-gray-300 rounded-md p-2 bg-white text-gray-600 w-full flex flex-col">
                 <Icon icon="fa-cloud-upload-alt" class="fa-lg mr-2" />
@@ -141,7 +211,8 @@ function clearFile() {
                 @input="updateValue"
             />
             <label
-                class="absolute -top-1.5 left-3 bg-white px-1 text-gray-600 text-xs transition-all duration-200 ease-linear">
+                class="absolute -top-1.5 left-3 bg-white px-1 text-gray-400 text-xs transition-all duration-200 ease-linear
+                truncate">
                 {{ props.title }}
             </label>
         </div>

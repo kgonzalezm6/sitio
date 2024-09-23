@@ -4,15 +4,16 @@ import { ref } from 'vue';
 import { useGlobalStore } from './global'
 export const useCabelloStore = defineStore('cabello', () => {
     let cabellos = ref([]);
-    let loading_cabellos = ref(false);
+    let loading_cabellos = ref(true);
     async function getCabello() {
         const global = useGlobalStore();
-        loading_cabellos.value = true;
+        
         const response = await axios.get(
             import.meta.env.VITE_MY_BASE + 'persona/cabello')
           .then(response => {
             if (!response.data.error) {
               cabellos.value = response.data;
+              loading_cabellos.value = false;
             } else {
               console.log('Ha ocurrido un error al cargar la información');
             }
@@ -23,7 +24,6 @@ export const useCabelloStore = defineStore('cabello', () => {
             global.setAlert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
           })
           .finally(()=>{
-            loading_cabellos.value = true;
         })
       };
     return {

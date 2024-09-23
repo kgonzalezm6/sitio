@@ -9,6 +9,7 @@ import Chica from '../views/Persona/Chica.vue';
 import Unauthorize from '../views/401-Unauthorize.vue';
 import NotFound from '../views/404-Not-Found.vue';
 import Empresa from '../views/Persona/Empresa.vue';
+import NuevoChica from '../components/modals/NuevoChica.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_MY_URL),
@@ -35,6 +36,11 @@ const router = createRouter({
           path: 'persona/chicas/:id',
           name: 'Chica',
           component: Chica,
+        },
+        {
+          path: 'persona/chicas/nuevo',
+          name: 'NuevoChica',
+          component: NuevoChica,
         },
         {
           path: 'persona/empresas',

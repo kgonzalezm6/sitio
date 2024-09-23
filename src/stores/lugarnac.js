@@ -7,7 +7,7 @@ export const useLugarnacStore = defineStore('lugarnac', () => {
   let lugarnac = ref([]);
   let loading_lugarnac = ref(false);
   let lugar = ref([]);
-  let loading_lugar = ref(false);
+  let loading_lugar = ref(true);
   const headers= [{
     title: 'ID',
     align: 'start',
@@ -59,12 +59,12 @@ export const useLugarnacStore = defineStore('lugarnac', () => {
   }
   async function getLugarnac() {
     const global = useGlobalStore();
-    loading_lugarnac.value = true;
     const response = await axios.get(
         import.meta.env.VITE_MY_BASE + 'persona/lugarnac')
       .then(response => {
         if (!response.data.error) {
           lugarnac.value = response.data;
+          loading_lugarnac.value = false;
         } else {
           console.log();
           global.setAlert('Ha ocurrido un error al cargar la información');
@@ -76,7 +76,6 @@ export const useLugarnacStore = defineStore('lugarnac', () => {
         global.setAlert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err);
       })
       .finally(()=>{
-        loading_lugarnac.value = false;
       })
   };
   async function CreateLugarnac() {

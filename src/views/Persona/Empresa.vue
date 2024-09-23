@@ -1,20 +1,20 @@
 <template>
     <div v-if="store.loading_registro">
-        <div class="w-full bg-white rounded-xl h-[18rem] shadow-all flex justify-start items-center">
-            <div class="w-[40%]">
-                <img  :src="imageUrl(store.registro.imagen)" :alt="store.registro.nombre" class="h-[3rem] px-5 hover:cursor-pointer">
+      <div class="w-full bg-white rounded-xl h-auto md:h-[18rem] shadow-all md:flex justify-start items-center">
+        <div class="w-full md:w-[40%]">
+            <img :src="imageUrl(store.registro.imagen)" :alt="store.registro.nombre" class="h-[3rem] mx-auto md:ml-10 mt-10 md:mt-0 hover:cursor-pointer">
+        </div>
+        <div class="bg-white h-full w-full md:w-[60%] px-5 md:px-[10rem]">
+            <div class="py-12 font-extrabold text-blue-900">
+                NOMBRE :
+                <span class="font-light">{{store.registro.nombre}}</span>
             </div>
-            <div class="bg-white h-full px-[10rem]">
-                <div class="py-12 font-extrabold text-blue-900">
-                    NOMBRE :
-                    <span class="font-light">{{store.registro.nombre}}</span>
-                </div>
-                <div class="py-12 font-extrabold text-blue-900">
-                    SITIO :
-                    <a :href="store.registro.sitio" class="font-light text-black">{{store.registro.nombre}}</a>
-                </div>
+            <div class="py-12 font-extrabold text-blue-900">
+                SITIO :
+                <a :href="store.registro.sitio" class="font-light text-black">{{store.registro.nombre}}</a>
             </div>
         </div>
+    </div>
         <div class="w-full bg-white rounded-xl h-[25rem] shadow-all mt-7">
             <datatable :data="store.registro.peliculas" :headers="pelicula.headers" :loading="store.loading_registro">
 

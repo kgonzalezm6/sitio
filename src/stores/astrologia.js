@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { useGlobalStore } from './global'
 export const useAstrologiaStore = defineStore('astrologia', () => {
   let astrologias = ref([]);
-  let loading_astrologias = ref(false);
+  let loading_astrologias = ref(true);
   async function getAstrologia() {
     const global = useGlobalStore();
     const response = await axios.get(
@@ -12,6 +12,7 @@ export const useAstrologiaStore = defineStore('astrologia', () => {
       .then(response => {
         if (!response.data.error) {
           astrologias.value = response.data;
+          loading_astrologias.value = false;
         } else {
           console.log();
           global.setAlert('Ha ocurrido un error al cargar la información');
@@ -23,7 +24,6 @@ export const useAstrologiaStore = defineStore('astrologia', () => {
         global.setAlert('Ha ocurrido un error al tratar de comunicarse con el servidor' + err)
       })
       .finally(()=>{
-        loading_astrologias.value = false;
       })
   }
   return {

@@ -41,7 +41,7 @@ watch(activeTab, (newTab) => {
                     <Icon v-if="props.icon" :icon="props.icon" class="text-orange-500 text-2xl" />
                     <span class="text-2xl text-blue-muni font-semibold tracking-tight">{{ props.title }}</span>
                 </header>
-                <section class="px-4 overflow-auto max-h-[21rem] my-4">
+                <section class="px-4 overflow-auto h-[25rem] my-4">
                     <slot></slot>
                 </section>
                 <footer class="text-right flex justify-between">
