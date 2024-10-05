@@ -10,6 +10,7 @@ import Unauthorize from '../views/401-Unauthorize.vue';
 import NotFound from '../views/404-Not-Found.vue';
 import Empresa from '../views/Persona/Empresa.vue';
 import NuevoChica from '../components/modals/NuevoChica.vue';
+import EditarChica from '../components/modals/EditarChica.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_MY_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
           path: 'persona/chicas/nuevo',
           name: 'NuevoChica',
           component: NuevoChica,
+        },
+        {
+          path: 'persona/chicas/editar/:id',
+          name: 'EditarChica',
+          component: EditarChica,
         },
         {
           path: 'persona/empresas',

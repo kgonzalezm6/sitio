@@ -15,7 +15,7 @@
                     </template>
                     <template #foto="{ item }">
                         <div class="mx-auto w-48">
-                                <img :src="imageUrl(item.imagen)" :alt="item.nombre" @click="redirect(item.id_chica)" class="h-40 cursor-pointer">
+                                <img :src="imageUrl(item.foto)" :alt="item.nombre" @click="redirect(item.id_chica)" class="h-40 cursor-pointer">
                         </div>
                     </template>
                     <template #estado="{ item }">
@@ -24,7 +24,7 @@
                                 'Inactivo' }}</span>
                     </template>
                     <template #actions="{ item }">
-                        <Icon icon="pen-to-square" @click="store.opciones(item, 1)"
+                        <Icon icon="pen-to-square" @click="editar(item.id_chica)"
                             class="text-3xl text-cyan-500 hover:scale-125 mr-2 " />
                         <Icon icon="trash" @click="store.opciones(item, 3)" 
                         class="text-3xl text-red-500 hover:scale-125" />
@@ -61,13 +61,14 @@ const breadcrumbs = [
   { name: 'Persona', path: '/persona'},
   { name: 'Chicas', path: '' }
 ];
-
-
 function redirect(id) {
     router.push({ name: 'Chica', params: { id: id } })
 };
 function nuevo() {
     router.push({ name: 'NuevoChica'})
+};
+function editar(id) {
+    router.push({ name: 'EditarChica', params: { id: id }})
 };
 const imageUrl = (imagen) => `${import.meta.env.VITE_MY_URL_IMAGE}${imagen}`;
 onMounted(() => {

@@ -18,6 +18,7 @@ export const useChicaStore = defineStore('chica', () => {
     let opcion_unir = ref(false)
     let btn_unir = ref(false)
     let btn_nuevo = ref(false)
+    let btn_editar = ref(false)
     const headers = [
         {
             title: 'ID',
@@ -245,6 +246,57 @@ export const useChicaStore = defineStore('chica', () => {
             btn_nuevo.value = false
         }
     }
+    async function show () {
+        try {
+            const response = await axios.get('persona/chica/'+id.value)
+            if(!response.data.error){
+                if(response.data.codigo == 1){
+                    registro.value = response.data.datos[0];
+                    loading_registro.value = true;
+                    global.setAlert(response.data.mensaje,response.data.color);
+                }else{
+                    global.setAlert(response.data.mensaje,response.data.color);
+                }
+            }else{
+
+            }
+        } catch (error) {
+            
+        }
+    }
+    async function update() {
+        btn_editar.value = true
+        const formData = new FormData()
+        Object.keys(registro.value).forEach(key => {
+            if (registro.value[key] !== null) {
+                // Si es la imagen, asegúrate de que sea un archivo
+                if (key === 'imagen' && registro.value[key] instanceof File) {
+                    formData.append(key, registro.value[key])
+                } else {
+                    formData.append(key, registro.value[key])
+                }
+            }
+        })
+        try {
+            const response = axios.post('persona/chica_editar', formData)
+            if (!response.data.error) {
+                if (response.data.codigo == 1) {
+                    global.setAlert(response.data.mensaje, response.data.color)
+                    router.push({ name: 'Chicas' })
+                } else {
+                    global.setAlert(response.data.mensaje, response.data.color)
+                }
+            } else {
+                global.setAlert(response.data.mensaje, response.data.color)
+            }
+        } catch (error) {
+            errors.value = error.response?.data?.errors || 'Error desconocido'
+            global.setAlert(error.response?.data?.mensaje || 'Error en la solicitud', 'danger')
+        } finally{
+            btn_editar.value = false;
+        }
+        
+    }
     function opciones (type, item = null) {
         loading_opcion.value = true
         registro.value = item
@@ -292,14 +344,15 @@ export const useChicaStore = defineStore('chica', () => {
         unir,
         btn_unir,
         btn_nuevo,
+        btn_editar,
         nuevo,
 
-        getChica,
-        getOne,
-        UpdatedChica,
         DeleteChica,
+        getChica,
         store,
+        show,
         join,
+        update,
         opciones,
         add,
         remove
