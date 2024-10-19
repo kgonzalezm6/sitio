@@ -67,6 +67,7 @@ const breadcrumbs = [
   { name: 'Chicas', path: '/persona/chicas' },
   { name: 'Editar', path: ''}
 ];
+
 onMounted(() => {
     store.id = route.params.id;
     store.show();
@@ -80,6 +81,13 @@ watch(() => store.loading_registro, (newX) => {
         astrologia.getAstrologia();
         lugarnac.getLugarnac();
     }
+});
+onBeforeRouteLeave((to, from, next) => {
+  // Realiza acciones antes de abandonar la ruta
+  store.registro = [];
+
+  // Llama a next() para continuar con la transición de la ruta
+  next();
 });
 </script>
 
