@@ -30,14 +30,17 @@
                 </template>
             </v-select>
             <text-field option="year" title="comienzo" v-model="store.registro.comienzo"/>
-            <text-field option="year" title="final" v-model="store.registro.final"/>
+            <text-field option="year" title="final" v-model="store.registro.fin"/>
             <text-field option="url" title="instagram" v-model="store.registro.instagram"/>
             <text-field option="url" title="twitter" v-model="store.registro.twitter"/>
             <div class="col-span-4">
                 <text-field option="file" title="foto" v-model="store.registro.imagen"/>
             </div>
+            <div class="col-span-4 flex justify-center">
+                <img :src="imageUrl(store.registro.foto)" :alt="store.registro.nombre" class="h-[20rem]">
+            </div>
             <div class="col-span-4">
-                
+                <validate-errors :errors="store.errors" v-if="store.errors != 0"/>
             </div>
             <div class="col-span-2 flex justify-start">
                 <btn text="Cancelar" icon="x" class="bg-red-600 text-white"/>
@@ -55,6 +58,7 @@
 
 <script setup>
 import { onMounted, ref, watch } from 'vue'
+import { imageUrl } from '@/functions/image';
 import { useChicaStore } from '@/stores/chica';
 import { useStores } from '@/stores';
 import { useRoute, onBeforeRouteLeave } from 'vue-router'

@@ -35,6 +35,7 @@ import GalleryModal from './components/GalleryModal.vue';
 import AutoCompleteSelect from './components/AutoCompleteSelect.vue';
 import loading from './components/loading.vue';
 import Breadcrumbs from './components/Breadcrumbs.vue'
+import Eliminar from './components/Eliminar.vue'
 import axios from 'axios'
 library.add(fas)
 library.add(fab)
@@ -67,6 +68,7 @@ app.component('Icon', FontAwesomeIcon)
 .component('Autocomplete', AutoCompleteSelect)
 .component('Loading', loading)
 .component('Breadcrumbs', Breadcrumbs)
+.component('Eliminar', Eliminar)
 app.mount('#app')
 
 

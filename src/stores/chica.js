@@ -16,6 +16,7 @@ export const useChicaStore = defineStore('chica', () => {
     let loading_delete = ref(false)
     let loading_opcion = ref(false)
     let opcion_unir = ref(false)
+    let opcion_eliminar = ref(false)
     let btn_unir = ref(false)
     let btn_nuevo = ref(false)
     let btn_editar = ref(false)
@@ -129,36 +130,6 @@ export const useChicaStore = defineStore('chica', () => {
                 console.log('Ha ocurrido un error al tratar de comunicarse con el servidor' + err)
             })
             .finally(() => {})
-    }
-    async function UpdatedChica () {
-        loading_update.value = true
-        const global = useGlobalStore()
-        const response = await axios
-            .put(
-                import.meta.env.VITE_MY_BASE + 'persona/chica/' + this.onechica.id_chica,
-                this.onechica
-            )
-            .then(response => {
-                console.log(response.data)
-                if (!response.data.error) {
-                    global.setAlert('Guardado', 'success')
-                    setTimeout(() => {
-                        isEdit.value = false
-                        this.getChica()
-                    }, 1000)
-                } else {
-                    global.setAlert('Ha ocurrido un error al cargar la información', 'danger')
-                }
-            })
-            .catch(err => {
-                global.setAlert(
-                    'Ha ocurrido un error al tratar de comunicarse con el servidor' + err,
-                    'danger'
-                )
-            })
-            .finally(() => {
-                loading_update.value = false
-            })
     }
     async function DeleteChica () {
         loading_delete.value = true
@@ -278,20 +249,20 @@ export const useChicaStore = defineStore('chica', () => {
             }
         })
         try {
-            const response = axios.post('persona/chica_editar', formData)
+            const response = await axios.post('persona/chica/'+ registro.value.id_chica, formData)
             if (!response.data.error) {
                 if (response.data.codigo == 1) {
-                    global.setAlert(response.data.mensaje, response.data.color)
+                    global.setAlert(response.data.mensaje, response.data.color, response.data.titulo)
                     router.push({ name: 'Chicas' })
                 } else {
-                    global.setAlert(response.data.mensaje, response.data.color)
+                    global.setAlert(response.data.mensaje, response.data.color, response.data.titulo)
                 }
             } else {
-                global.setAlert(response.data.mensaje, response.data.color)
+                global.setAlert(response.data.mensaje, response.data.color, response.data.titulo)
             }
         } catch (error) {
             errors.value = error.response?.data?.errors || 'Error desconocido'
-            global.setAlert(error.response?.data?.mensaje || 'Error en la solicitud', 'danger')
+            global.setAlert(error.response?.data?.mensaje || 'Error en la solicitud', 'danger','Error')
         } finally{
             btn_editar.value = false;
         }
@@ -306,6 +277,7 @@ export const useChicaStore = defineStore('chica', () => {
             case 2:
                 break
             case 3:
+                opcion_eliminar.value = true;
                 break
             case 4:
                 opcion_unir.value = true
@@ -340,6 +312,7 @@ export const useChicaStore = defineStore('chica', () => {
         loading_delete,
         loading_opcion,
         opcion_unir,
+        opcion_eliminar,
         tabs,
         unir,
         btn_unir,

@@ -88,14 +88,13 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
+import { imageUrl } from '@/functions/image';
 import { useChicaPeliculaStore } from '@/stores/chicapelicula';
 import { usePeliculaStore } from '@/stores/pelicula';
 import { useRoute, onBeforeRouteLeave } from 'vue-router'
 const route = useRoute();
 const store = useChicaPeliculaStore();
 const pelicula = usePeliculaStore();
-
-const imageUrl = (imagen) => `${import.meta.env.VITE_MY_URL_IMAGE}${imagen}`;
 const name = store.registro.nombre;
 const breadcrumbs = [
   { name: 'Home', path: '/', icon: 'fas fa-home' },

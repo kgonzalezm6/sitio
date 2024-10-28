@@ -26,7 +26,7 @@
                     <template #actions="{ item }">
                         <Icon icon="pen-to-square" @click="editar(item.id_chica)"
                             class="text-3xl text-cyan-500 hover:scale-125 mr-2 " />
-                        <Icon icon="trash" @click="store.opciones(item, 3)" 
+                        <Icon icon="trash" @click="store.opciones(3,item)" 
                         class="text-3xl text-red-500 hover:scale-125" />
                     </template>
                 </datatable>
@@ -40,10 +40,21 @@
         <DeleteChica />
         <DeleteEmpresa /> -->
         <UnirChica />
+        <div>
+            <button @click="openModal" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+              Eliminar elemento
+            </button>
+        
+            <Eliminar 
+              :isOpen="isModalOpen" 
+              @close="closeModal" 
+              @confirm="deleteItem"
+            />
+          </div>
     </div>
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useChicaStore } from '../../stores/chica';
 import { useGlobalStore } from '../../stores/global';
 // import EditChica from '../components/serie/EditChica.vue';
@@ -51,7 +62,8 @@ import { useGlobalStore } from '../../stores/global';
 // import CrearChica from '../components/serie/CrearChica.vue';
 // import DeleteEmpresa from '../components/serie/DeleteEmpresa.vue'
 import { onBeforeRouteLeave, useRouter } from "vue-router"
-import UnirChica from '../../components/modals/UnirChica.vue';
+import { imageUrl } from '@/functions/image';
+import UnirChica from '@/components/modals/UnirChica.vue';
 const store = useChicaStore();
 const globalStore = useGlobalStore();
 const router = useRouter();
@@ -70,7 +82,23 @@ function nuevo() {
 function editar(id) {
     router.push({ name: 'EditarChica', params: { id: id }})
 };
-const imageUrl = (imagen) => `${import.meta.env.VITE_MY_URL_IMAGE}${imagen}`;
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
+
+const deleteItem = () => {
+  // Aquí iría la lógica para eliminar el elemento
+  console.log('Elemento eliminado');
+  closeModal();
+};
+
 onMounted(() => {
     store.getChica();
 });
